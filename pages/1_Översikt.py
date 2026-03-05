@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Översikt — Klimatbudget", page_icon="📊", layout="wide")
@@ -16,6 +17,7 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 # Load data
 with open("data/klimatbudget.json", "r", encoding="utf-8") as f:

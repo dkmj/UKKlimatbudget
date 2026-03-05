@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Presentation & Tankekarta — Bildspel och interaktiv tankekarta."""
+"""Presentation & Begreppsträd — Bildspel och interaktivt begreppsträd."""
 
 import json
+import base64
+import re
 import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Presentation — Klimatbudget", page_icon="📑", layout="wide")
@@ -15,9 +18,10 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 st.title("📑 Presentation: Klimatbudgeten")
-st.markdown("AI-genererad presentation och tankekarta för möten och workshops.")
+st.markdown("AI-genererad presentation och begreppsträd för möten och workshops.")
 
 # --- Slides ---
 slides_dir = Path("assets/generated")
@@ -38,56 +42,109 @@ if slide_files:
             mime="application/pdf",
         )
 
-        # Embed PDF using object tag (works better than iframe with data URIs)
-        import base64
+        # Render PDF using pdf.js for reliable cross-browser display
         b64 = base64.b64encode(pdf_bytes).decode()
-        pdf_html = f'''
-        <object
-            data="data:application/pdf;base64,{b64}"
-            type="application/pdf"
-            width="100%"
-            height="700px"
-            style="border: 1px solid #ddd; border-radius: 8px;">
-            <p>Din webbläsare kan inte visa PDF direkt.
-            <a href="data:application/pdf;base64,{b64}" download="{slide_file.name}">Ladda ner PDF</a></p>
-        </object>
-        '''
-        components.html(pdf_html, height=720)
+        pdf_html = f'''<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+body {{ margin: 0; background: #1A0A2E; padding: 10px; }}
+.page-canvas {{
+    display: block;
+    margin: 0 auto 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    border-radius: 4px;
+    max-width: 100%;
+}}
+.page-label {{
+    text-align: center;
+    color: #E8E0D8;
+    font-family: sans-serif;
+    font-size: 12px;
+    margin-bottom: 8px;
+    opacity: 0.7;
+}}
+</style>
+</head><body>
+<div id="pages"></div>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const pdfData = atob('{b64}');
+const loadingTask = pdfjsLib.getDocument({{data: pdfData}});
+loadingTask.promise.then(pdf => {{
+    const container = document.getElementById('pages');
+    for (let i = 1; i <= pdf.numPages; i++) {{
+        pdf.getPage(i).then(page => {{
+            const scale = 1.5;
+            const viewport = page.getViewport({{scale}});
+            const label = document.createElement('div');
+            label.className = 'page-label';
+            label.textContent = 'Sida ' + i + ' av ' + pdf.numPages;
+            const canvas = document.createElement('canvas');
+            canvas.className = 'page-canvas';
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            container.appendChild(label);
+            container.appendChild(canvas);
+            page.render({{canvasContext: canvas.getContext('2d'), viewport}});
+        }});
+    }}
+}});
+</script>
+</body></html>'''
+        components.html(pdf_html, height=800, scrolling=True)
 
         thumbs_feedback("presentation", slide_file.stem, key_suffix=slide_file.stem)
 else:
     st.info("Ingen presentation har genererats ännu.")
 
-# --- Mind Map ---
+# --- Begreppsträd (formerly Tankekarta / Mind Map) ---
 st.markdown("---")
-st.subheader("🧠 Tankekarta")
+st.subheader("🌳 Begreppsträd")
 
 mind_map_file = slides_dir / "mind_map.json"
 if mind_map_file.exists():
     with open(mind_map_file, "r", encoding="utf-8") as f:
         mind_map_data = json.load(f)
 
-    # Build interactive D3.js collapsible tree
+    # Build interactive D3.js collapsible tree with dark theme
     mind_map_json = json.dumps(mind_map_data, ensure_ascii=False)
     tree_html = f'''<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; overflow: hidden; }}
+body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+       overflow: hidden; background: #1A0A2E; }}
 svg {{ width: 100%; height: 100%; }}
-.node circle {{ fill: #fff; stroke: #2E7D32; stroke-width: 2.5px; cursor: pointer; transition: all 0.2s; }}
-.node circle:hover {{ fill: #E8F5E9; stroke-width: 3px; r: 7; }}
-.node circle.has-children {{ fill: #E8F5E9; }}
-.node circle.collapsed {{ fill: #FFF3E0; stroke: #F57C00; }}
-.node text {{ font-size: 13px; fill: #333; }}
-.node--root text {{ font-size: 15px; font-weight: 700; fill: #1B5E20; }}
-.link {{ fill: none; stroke: #C8E6C9; stroke-width: 1.5px; }}
-.tooltip {{ position: absolute; background: #333; color: #fff; padding: 6px 10px; border-radius: 4px;
-  font-size: 12px; pointer-events: none; opacity: 0; transition: opacity 0.2s; }}
+.node circle {{
+    fill: #2D1B4E; stroke: #7B2D8E; stroke-width: 2.5px;
+    cursor: pointer; transition: all 0.2s;
+}}
+.node circle:hover {{ fill: #5B2D8E; stroke-width: 3px; r: 7; }}
+.node circle.has-children {{ fill: #3D2560; stroke: #D94F7A; }}
+.node circle.collapsed {{ fill: #D4A843; stroke: #D4A843; }}
+.node text {{
+    font-size: 13px; fill: #F0EDE8;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}}
+.node--root text {{
+    font-size: 15px; font-weight: 700; fill: #D94F7A;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+}}
+.link {{ fill: none; stroke: rgba(123, 45, 142, 0.5); stroke-width: 1.5px; }}
+.download-btn {{
+    position: absolute; top: 10px; right: 10px;
+    background: #5B2D8E; color: #F0EDE8; border: 1px solid #7B2D8E;
+    padding: 8px 16px; border-radius: 8px; cursor: pointer;
+    font-size: 13px; font-family: sans-serif;
+    transition: background 0.2s;
+}}
+.download-btn:hover {{ background: #7B2D8E; }}
 </style>
 </head><body>
-<div class="tooltip" id="tooltip"></div>
+<button class="download-btn" onclick="downloadAsImage()">📥 Ladda ner som bild</button>
 <svg></svg>
 <script>
 const data = {mind_map_json};
@@ -100,22 +157,8 @@ const svg = d3.select("svg")
   .append("g")
   .attr("transform", `translate(${{margin.left}},${{margin.top}})`);
 
-const treeLayout = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right - 100]);
+let treeLayout = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right - 100]);
 
-const root = d3.hierarchy(data);
-root.x0 = (height - margin.top - margin.bottom) / 2;
-root.y0 = 0;
-
-// Start with first level expanded
-root.children && root.children.forEach(c => {{
-  if (c.children) {{
-    c._children = c.children;
-    c.children = null;
-  }}
-}});
-// But expand root children
-root.children = root.data.children ? root.children || d3.hierarchy(data).children : null;
-// Reset — just expand all
 const rootFresh = d3.hierarchy(data);
 rootFresh.x0 = (height - margin.top - margin.bottom) / 2;
 rootFresh.y0 = 0;
@@ -131,6 +174,77 @@ function collapse(d) {{
 rootFresh.children && rootFresh.children.forEach(collapse);
 
 update(rootFresh);
+
+function expandAll(d) {{
+  if (d._children) {{
+    d.children = d._children;
+    d._children = null;
+  }}
+  if (d.children) d.children.forEach(expandAll);
+}}
+
+function downloadAsImage() {{
+  // Expand all nodes for the screenshot
+  expandAll(rootFresh);
+
+  // Calculate the needed height based on total nodes
+  const allNodes = rootFresh.descendants();
+  const nodeCount = allNodes.length;
+  const fullHeight = Math.max(800, nodeCount * 28);
+  const fullWidth = Math.max(width, 1200);
+
+  // Temporarily resize the tree layout
+  treeLayout = d3.tree().size([fullHeight - 40, fullWidth - margin.left - margin.right - 100]);
+  update(rootFresh);
+
+  // Wait for transitions
+  setTimeout(() => {{
+    const svgEl = document.querySelector('svg');
+    const gEl = svgEl.querySelector('g');
+
+    // Update viewBox for full size
+    svgEl.setAttribute('viewBox', `0 0 ${{fullWidth}} ${{fullHeight}}`);
+    svgEl.setAttribute('width', fullWidth);
+    svgEl.setAttribute('height', fullHeight);
+
+    const svgData = new XMLSerializer().serializeToString(svgEl);
+    const svgBlob = new Blob([svgData], {{type: 'image/svg+xml;charset=utf-8'}});
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {{
+      const scale = 2;
+      const canvas = document.createElement('canvas');
+      canvas.width = fullWidth * scale;
+      canvas.height = fullHeight * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#1A0A2E';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, 0, 0, fullWidth, fullHeight);
+
+      canvas.toBlob(blob => {{
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'begreppsträd_klimatbudget.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Restore the original size
+        svgEl.setAttribute('viewBox', `0 0 ${{width}} ${{height}}`);
+        svgEl.removeAttribute('width');
+        svgEl.removeAttribute('height');
+        treeLayout = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right - 100]);
+        // Re-collapse to level 1
+        rootFresh.children && rootFresh.children.forEach(collapse);
+        update(rootFresh);
+      }}, 'image/jpeg', 0.95);
+    }};
+    img.src = url;
+  }}, 800);
+}}
 
 function update(source) {{
   const treeData = treeLayout(rootFresh);
@@ -215,19 +329,11 @@ function diagonal(s, d) {{
 }}
 </script></body></html>'''
 
-    components.html(tree_html, height=680, scrolling=False)
-    st.caption("💡 Klicka på en nod för att expandera/fälla ihop grenar.")
+    components.html(tree_html, height=700, scrolling=False)
+    st.caption("💡 Klicka på en nod för att expandera/fälla ihop grenar. "
+               "Använd knappen \"Ladda ner som bild\" för en fullständig JPG.")
 
-    # Download raw data
-    with open(mind_map_file, "rb") as f:
-        st.download_button(
-            label="📥 Ladda ner tankekarta (JSON)",
-            data=f.read(),
-            file_name="tankekarta_klimatbudget.json",
-            mime="application/json",
-        )
-
-    thumbs_feedback("mind_map", "tankekarta", key_suffix="mind_map")
+    thumbs_feedback("begreppsträd", "begreppsträd", key_suffix="mind_map")
 else:
     # Check for old HTML format
     old_html = slides_dir / "mind_map.html"
@@ -235,9 +341,9 @@ else:
         with open(old_html, "r", encoding="utf-8") as f:
             html_content = f.read()
         components.html(html_content, height=700, scrolling=True)
-        thumbs_feedback("mind_map", "tankekarta_html", key_suffix="mind_map_html")
+        thumbs_feedback("begreppsträd", "begreppsträd_html", key_suffix="mind_map_html")
     else:
-        st.info("Ingen tankekarta har genererats ännu.")
+        st.info("Inget begreppsträd har genererats ännu.")
 
 # --- Flashcards ---
 flashcards_file = slides_dir / "flashcards.json"
@@ -262,7 +368,6 @@ if flashcards_file.exists():
         st.progress((card_idx + 1) / len(cards), text=f"Kort {card_idx + 1} av {len(cards)}")
 
         # Strip LaTeX from flashcard text
-        import re
         def strip_latex(text):
             text = re.sub(r"\$([^$]+)\$", r"\1", text)
             return text.replace("\\%", "%").replace("\\", "")

@@ -3,6 +3,7 @@
 
 import streamlit as st
 from lib.auth import check_password
+from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css
 
 st.set_page_config(
@@ -16,6 +17,7 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 st.title("Uppsala Klimatbudget")
 st.markdown(

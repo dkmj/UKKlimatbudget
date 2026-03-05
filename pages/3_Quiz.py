@@ -7,6 +7,7 @@ import random
 import streamlit as st
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css
 from pathlib import Path
 
@@ -16,6 +17,7 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 st.title("❓ Quiz: Klimatbudgeten")
 
@@ -100,6 +102,12 @@ if "quiz_index" not in st.session_state:
     st.session_state.quiz_answered = False
     st.session_state.quiz_order = list(range(len(quiz_data)))
     random.shuffle(st.session_state.quiz_order)
+    # Pre-shuffle options for each question so correct answer isn't always first
+    st.session_state.quiz_shuffled_options = {}
+    for i in range(len(quiz_data)):
+        options = quiz_data[i]["alternativ"].copy()
+        random.shuffle(options)
+        st.session_state.quiz_shuffled_options[i] = options
 
 total = len(quiz_data)
 idx = st.session_state.quiz_index
@@ -113,24 +121,37 @@ if idx >= total:
         st.session_state.quiz_index = 0
         st.session_state.quiz_score = 0
         st.session_state.quiz_answered = False
+        st.session_state.quiz_order = list(range(len(quiz_data)))
         random.shuffle(st.session_state.quiz_order)
+        # Re-shuffle options
+        st.session_state.quiz_shuffled_options = {}
+        for i in range(len(quiz_data)):
+            options = quiz_data[i]["alternativ"].copy()
+            random.shuffle(options)
+            st.session_state.quiz_shuffled_options[i] = options
         st.rerun()
     st.stop()
 
-q = quiz_data[st.session_state.quiz_order[idx]]
+q_data_idx = st.session_state.quiz_order[idx]
+q = quiz_data[q_data_idx]
+shuffled_options = st.session_state.quiz_shuffled_options.get(q_data_idx, q["alternativ"])
+
 st.progress((idx) / total, text=f"Fråga {idx + 1} av {total}")
 
 st.markdown(f"### {q['fråga']}")
 
 selected = st.radio(
     "Välj ditt svar:",
-    q["alternativ"],
+    shuffled_options,
+    index=None,
     key=f"quiz_q_{idx}",
     disabled=st.session_state.quiz_answered,
 )
 
 if not st.session_state.quiz_answered:
-    if st.button("Svara", key=f"quiz_submit_{idx}"):
+    if selected is None:
+        st.caption("👆 Välj ett alternativ ovan för att kunna svara.")
+    if st.button("Svara", key=f"quiz_submit_{idx}", disabled=(selected is None)):
         st.session_state.quiz_answered = True
         if selected == q["rätt_svar"]:
             st.session_state.quiz_score += 1

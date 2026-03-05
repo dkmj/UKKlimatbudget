@@ -6,6 +6,13 @@ import streamlit as st
 import pandas as pd
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.favorites import (
+    is_favorite,
+    add_favorite,
+    remove_favorite,
+    render_sidebar_favorites,
+    MAX_FAVORITES,
+)
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Utforska — Klimatbudget", page_icon="🔍", layout="wide")
@@ -14,6 +21,7 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 with open("data/klimatbudget.json", "r", encoding="utf-8") as f:
     data = json.load(f)
@@ -25,6 +33,16 @@ områden = data["områden"]
 
 st.title("🔍 Utforska klimatåtgärder")
 st.markdown("Sök, filtrera och jämför alla 72 klimatåtgärder i budgeten.")
+
+# Cross-reference navigation button
+st.markdown(
+    '<a href="#korsreferens-tg-rder-per-organisation" '
+    'style="display:inline-block;padding:8px 20px;background:#5B2D8E;color:#F0EDE8;'
+    'border-radius:8px;text-decoration:none;font-weight:500;font-size:0.9em;'
+    'border:1px solid #7B2D8E;margin-bottom:1rem;">'
+    '📋 Gå till korsreferens per organisation ⬇️</a>',
+    unsafe_allow_html=True,
+)
 
 # Build flat dataframe
 rows = []
@@ -100,7 +118,19 @@ for _, row in filtered.iterrows():
                 ansvariga_full.append(f"**{org}**")
         st.markdown(f"**Ansvariga:** {', '.join(ansvariga_full)}")
 
-        thumbs_feedback("atgard", f"{row['Nr']}: {row['Åtgärd'][:50]}", key_suffix=row["Nr"])
+        # Star/favorite toggle (replaces thumbs up/down)
+        if is_favorite(row["Nr"]):
+            if st.button(f"★ Ta bort favorit", key=f"unfav_{row['Nr']}"):
+                remove_favorite(row["Nr"])
+                st.rerun()
+        else:
+            favs = len([f for f in st.session_state.get("favorites", [])])
+            if favs >= MAX_FAVORITES:
+                st.caption(f"☆ Favoritlistan är full ({MAX_FAVORITES}/{MAX_FAVORITES}). Ta bort en först.")
+            else:
+                if st.button(f"☆ Lägg till favorit", key=f"fav_{row['Nr']}"):
+                    add_favorite(row["Nr"], row["Åtgärd"], row["Område"])
+                    st.rerun()
 
 st.markdown("---")
 

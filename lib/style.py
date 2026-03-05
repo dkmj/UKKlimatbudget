@@ -191,6 +191,25 @@ def inject_custom_css():
 
         /* Audio player - keep default styling */
 
+        /* Chat message bubbles — ensure contrast against background */
+        [data-testid="stChatMessage"] {{
+            background-color: rgba(45, 27, 78, 0.85) !important;
+            border: 1px solid {PALETTE["violet"]} !important;
+            border-radius: 12px !important;
+            padding: 0.75rem 1rem !important;
+            margin-bottom: 0.5rem !important;
+        }}
+        [data-testid="stChatMessage"] p,
+        [data-testid="stChatMessage"] li,
+        [data-testid="stChatMessage"] span {{
+            color: {PALETTE["white"]} !important;
+        }}
+
+        /* Hide the default "app" page label in sidebar navigation */
+        [data-testid="stSidebarNav"] li:first-child {{
+            display: none !important;
+        }}
+
         /* Horizontal rule */
         hr {{
             border-color: {PALETTE["violet"]} !important;

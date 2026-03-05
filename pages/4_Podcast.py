@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered")
@@ -15,6 +16,7 @@ if not check_password():
     st.stop()
 
 inject_custom_css()
+render_sidebar_favorites()
 
 st.title("🎙️ Podcast: Klimatbudgeten")
 st.markdown(
@@ -107,6 +109,7 @@ if submitted and prompt.strip():
         json.dump(requests, f, ensure_ascii=False, indent=2)
 
     st.success("Tack! Ditt förslag har sparats och kommer att genereras vid nästa batch-körning.")
+    st.caption("💾 Förslaget sparas lokalt i `feedback/podcast_requests.json`.")
 
 # Show pending requests
 if requests_file.exists():
