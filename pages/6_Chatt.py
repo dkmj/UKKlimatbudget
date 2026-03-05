@@ -5,11 +5,14 @@ import json
 import streamlit as st
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Chatt — Klimatbudget", page_icon="💬", layout="centered")
 
 if not check_password():
     st.stop()
+
+inject_custom_css()
 
 st.title("💬 Chatt: Klimatbudgeten")
 
@@ -46,7 +49,7 @@ def _build_context() -> str:
 # Try to use Gemini
 gemini_available = False
 try:
-    api_key = st.secrets.get("gemini_api_key", "")
+    api_key = st.secrets["gemini_api_key"]
     if api_key:
         import google.generativeai as genai
 
@@ -54,17 +57,27 @@ try:
         model = genai.GenerativeModel("gemini-2.0-flash")
         gemini_available = True
 except Exception:
-    pass
+    api_key = ""
 
 if not gemini_available:
-    st.info(
-        "Chatten kräver en Gemini API-nyckel för att fungera live.\n\n"
-        "Lägg till `gemini_api_key` i `.streamlit/secrets.toml` eller "
-        "Streamlit Cloud secrets.\n\n"
-        "Under tiden kan du utforska materialet via **Översikt** och **Utforska**."
-    )
+    st.warning("⚠️ Chatten kräver en **Gemini API-nyckel** för att fungera.")
+
+    with st.expander("🔑 Så här skapar du en API-nyckel", expanded=True):
+        st.markdown(
+            "1. Gå till [Google AI Studio](https://aistudio.google.com/apikey)\n"
+            "2. Logga in med ditt Google-konto\n"
+            "3. Klicka **Create API key** och välj ett projekt\n"
+            "4. Kopiera nyckeln\n\n"
+            "**Lokalt:** Skapa filen `.streamlit/secrets.toml` och lägg till:\n"
+        )
+        st.code('gemini_api_key = "din-nyckel-här"', language="toml")
+        st.markdown(
+            "**Streamlit Cloud:** Gå till appens inställningar → *Secrets* "
+            "och lägg till samma rad."
+        )
+
     st.markdown("---")
-    st.markdown("### Förslag på frågor att ställa:")
+    st.markdown("### 💡 Förslag på frågor att ställa (när chatten är aktiv):")
     suggestions = [
         "Vilka åtgärder har störst potential att minska utsläppen snabbt?",
         "Jämför transportområdet med energiområdet — likheter och skillnader?",

@@ -3,6 +3,7 @@
 
 import streamlit as st
 from lib.auth import check_password
+from lib.style import inject_custom_css
 
 st.set_page_config(
     page_title="Uppsala Klimatbudget",
@@ -13,6 +14,8 @@ st.set_page_config(
 
 if not check_password():
     st.stop()
+
+inject_custom_css()
 
 st.title("Uppsala Klimatbudget")
 st.markdown(

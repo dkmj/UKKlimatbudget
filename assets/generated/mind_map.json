@@ -1,0 +1,150 @@
+{
+  "name": "Uppsala kommuns klimatbudget",
+  "children": [
+    {
+      "name": "Övergripande mål",
+      "children": [
+        {
+          "name": "Klimatneutralt Uppsala 2030"
+        },
+        {
+          "name": "Klimatanpassat Uppsala 2040"
+        },
+        {
+          "name": "Klimatpositivt Uppsala 2050"
+        },
+        {
+          "name": "Minskning 18–22 % utsläpp per år"
+        }
+      ]
+    },
+    {
+      "name": "Transport",
+      "children": [
+        {
+          "name": "Kapacitetsstarkt kollektivtrafiksystem (spårväg)"
+        },
+        {
+          "name": "Hållbara resmönster och biltrafikminskning"
+        },
+        {
+          "name": "Utbyggnad av laddinfrastruktur för elfordon"
+        },
+        {
+          "name": "Prioriterat cykelvägnät och gångbanor"
+        },
+        {
+          "name": "Fossilfria arbetsmaskiner"
+        }
+      ]
+    },
+    {
+      "name": "Energi",
+      "children": [
+        {
+          "name": "Energieffektivisering i fastigheter"
+        },
+        {
+          "name": "Installation av solenergianläggningar"
+        },
+        {
+          "name": "Minskad förbränning av fossil plast"
+        },
+        {
+          "name": "Optimering av elnätsanvändning"
+        },
+        {
+          "name": "Återanvändning av spillvärme"
+        }
+      ]
+    },
+    {
+      "name": "Bygg och anläggning",
+      "children": [
+        {
+          "name": "Klimatsmarta materialval"
+        },
+        {
+          "name": "Återbruk och cirkulära resursflöden"
+        },
+        {
+          "name": "Livscykelanalyser vid beslut"
+        },
+        {
+          "name": "Hållbar masshantering"
+        },
+        {
+          "name": "Anpassa byggnader istället för rivning"
+        }
+      ]
+    },
+    {
+      "name": "Jord- och skogsbruk",
+      "children": [
+        {
+          "name": "Ökad kolinlagring i skog och mark"
+        },
+        {
+          "name": "Minskad klimatpåverkan från livsmedelskedjan"
+        },
+        {
+          "name": "Naturbaserade lösningar"
+        },
+        {
+          "name": "Främja biologisk mångfald i arrenden"
+        }
+      ]
+    },
+    {
+      "name": "Konsumtion",
+      "children": [
+        {
+          "name": "Klimatkrav vid upphandling och inköp"
+        },
+        {
+          "name": "Ökat internt återbruk"
+        },
+        {
+          "name": "Minskad klimatpåverkan från måltider"
+        },
+        {
+          "name": "Cirkulära lösningar och ökad livslängd"
+        }
+      ]
+    },
+    {
+      "name": "Natur och miljö",
+      "children": [
+        {
+          "name": "Skydd av värdefull natur (naturreservat)"
+        },
+        {
+          "name": "Stärkt biologisk mångfald och ekosystem"
+        },
+        {
+          "name": "Säkrad dricksvattenförsörjning"
+        },
+        {
+          "name": "Bättre luftkvalitet (WHO-riktvärden)"
+        }
+      ]
+    },
+    {
+      "name": "Styrning och samverkan",
+      "children": [
+        {
+          "name": "Uppsala klimatprotokoll"
+        },
+        {
+          "name": "Innovation och testbäddar"
+        },
+        {
+          "name": "Klimathubben för kommunikation"
+        },
+        {
+          "name": "Systematiskt klimatanpassningsarbete"
+        }
+      ]
+    }
+  ]
+}

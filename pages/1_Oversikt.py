@@ -8,11 +8,14 @@ import plotly.graph_objects as go
 import pandas as pd
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Översikt — Klimatbudget", page_icon="📊", layout="wide")
 
 if not check_password():
     st.stop()
+
+inject_custom_css()
 
 # Load data
 with open("data/klimatbudget.json", "r", encoding="utf-8") as f:
@@ -57,24 +60,41 @@ c4.metric(
 
 st.markdown("---")
 
-# --- Actions per area ---
+# --- Actions per area (waffle chart) ---
 st.subheader("Antal åtgärder per område")
-area_counts = []
-for o in områden:
-    area_counts.append({"Område": o["namn"], "Antal åtgärder": len(o["åtgärder"])})
 
-df_areas = pd.DataFrame(area_counts)
-fig_areas = px.bar(
-    df_areas,
-    x="Område",
-    y="Antal åtgärder",
-    color="Område",
-    color_discrete_sequence=px.colors.qualitative.Set2,
-    text="Antal åtgärder",
-)
-fig_areas.update_layout(showlegend=False, yaxis_title="", xaxis_title="")
-fig_areas.update_traces(textposition="outside")
-st.plotly_chart(fig_areas, use_container_width=True)
+area_colors = ["#7B2D8E", "#D94F7A", "#8da0cb", "#D4A843", "#8B9B58", "#E8476C"]
+total_actions = sum(len(o["åtgärder"]) for o in områden)
+
+waffle_squares = []
+for i, o in enumerate(områden):
+    count = len(o["åtgärder"])
+    for _ in range(count):
+        waffle_squares.append(
+            f'<div title="{o["namn"]} ({count} åtgärder)" '
+            f'style="width:30px;height:30px;background:{area_colors[i]};'
+            f'border-radius:4px;"></div>'
+        )
+
+legend_items = []
+for i, o in enumerate(områden):
+    count = len(o["åtgärder"])
+    legend_items.append(
+        f'<div style="display:flex;align-items:center;margin-right:20px;margin-bottom:4px;">'
+        f'<div style="width:14px;height:14px;background:{area_colors[i]};'
+        f'border-radius:3px;margin-right:6px;flex-shrink:0;"></div>'
+        f'<span>{o["namn"]} ({count})</span></div>'
+    )
+
+waffle_html = f'''<div style="display:inline-grid;grid-template-columns:repeat(12, 30px);gap:4px;margin-bottom:16px;">
+{"".join(waffle_squares)}
+</div>
+<div style="display:flex;flex-wrap:wrap;font-size:0.85em;">
+{"".join(legend_items)}
+</div>
+<div style="font-size:0.85em;color:#E8E0D8;margin-top:4px;opacity:0.8;">Totalt {total_actions} åtgärder</div>'''
+
+st.markdown(waffle_html, unsafe_allow_html=True)
 
 thumbs_feedback("oversikt_area_chart", "Diagram: åtgärder per område", key_suffix="areas")
 
@@ -101,7 +121,7 @@ fig_resp = px.bar(
     y="Organisation",
     orientation="h",
     color="Antal åtgärder",
-    color_continuous_scale="Greens",
+    color_continuous_scale=[[0, "#2D1B4E"], [0.5, "#7B2D8E"], [1, "#D94F7A"]],
     text="Antal åtgärder",
     hover_data=["Förkortning"],
 )
@@ -112,6 +132,9 @@ fig_resp.update_layout(
     xaxis_title="",
     yaxis_title="",
     height=500,
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font_color="#F0EDE8",
 )
 fig_resp.update_traces(textposition="outside")
 st.plotly_chart(fig_resp, use_container_width=True)
@@ -146,7 +169,7 @@ fig_emissions.add_trace(
         y=hist_values,
         mode="lines+markers",
         name="Historiska utsläpp",
-        line=dict(color="#1976D2", width=3),
+        line=dict(color="#D94F7A", width=3),
     )
 )
 fig_emissions.add_trace(
@@ -155,9 +178,9 @@ fig_emissions.add_trace(
         y=budget_values,
         mode="lines",
         name="Utsläppsbudget (20%/år)",
-        line=dict(color="#2E7D32", width=2, dash="dash"),
+        line=dict(color="#D4A843", width=2, dash="dash"),
         fill="tozeroy",
-        fillcolor="rgba(46, 125, 50, 0.1)",
+        fillcolor="rgba(123, 45, 142, 0.15)",
     )
 )
 fig_emissions.update_layout(
@@ -165,6 +188,11 @@ fig_emissions.update_layout(
     xaxis_title="År",
     legend=dict(orientation="h", yanchor="bottom", y=1.02),
     height=400,
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font_color="#F0EDE8",
+    xaxis=dict(gridcolor="rgba(91, 45, 142, 0.3)"),
+    yaxis=dict(gridcolor="rgba(91, 45, 142, 0.3)"),
 )
 st.plotly_chart(fig_emissions, use_container_width=True)
 

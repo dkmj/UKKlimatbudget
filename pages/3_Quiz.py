@@ -2,10 +2,12 @@
 """Quiz — Testa din kunskap om klimatbudgeten."""
 
 import json
+import re
 import random
 import streamlit as st
 from lib.auth import check_password
 from lib.feedback import thumbs_feedback
+from lib.style import inject_custom_css
 from pathlib import Path
 
 st.set_page_config(page_title="Quiz — Klimatbudget", page_icon="❓", layout="centered")
@@ -13,7 +15,17 @@ st.set_page_config(page_title="Quiz — Klimatbudget", page_icon="❓", layout="
 if not check_password():
     st.stop()
 
+inject_custom_css()
+
 st.title("❓ Quiz: Klimatbudgeten")
+
+
+def _strip_latex(text: str) -> str:
+    """Remove LaTeX notation from text: $18-22\\%$ → 18-22%."""
+    text = re.sub(r"\$([^$]+)\$", r"\1", text)
+    text = text.replace("\\%", "%").replace("\\", "")
+    return text
+
 
 # Check for NotebookLM-generated quiz
 quiz_file = Path("assets/generated/quiz.json")
@@ -25,15 +37,17 @@ if quiz_file.exists():
     if "questions" in raw:
         quiz_data = []
         for q in raw["questions"]:
+            # NLM sometimes uses "text" instead of "question"
+            question_text = q.get("question", q.get("text", ""))
             correct = next(
-                (a["text"] for a in q["answerOptions"] if a["isCorrect"]), ""
+                (_strip_latex(a["text"]) for a in q["answerOptions"] if a["isCorrect"]), ""
             )
             correct_rationale = next(
-                (a["rationale"] for a in q["answerOptions"] if a["isCorrect"]), ""
+                (_strip_latex(a.get("rationale", "")) for a in q["answerOptions"] if a["isCorrect"]), ""
             )
             quiz_data.append({
-                "fråga": q["question"],
-                "alternativ": [a["text"] for a in q["answerOptions"]],
+                "fråga": _strip_latex(question_text),
+                "alternativ": [_strip_latex(a["text"]) for a in q["answerOptions"]],
                 "rätt_svar": correct,
                 "förklaring": correct_rationale,
             })
@@ -72,41 +86,6 @@ else:
             "alternativ": ["516 kton CO₂e", "716 kton CO₂e", "816 kton CO₂e", "916 kton CO₂e"],
             "rätt_svar": "816 kton CO₂e",
             "förklaring": "Utfall 2023: 816 kiloton koldioxidekvivalenter (2022: 807).",
-        },
-        {
-            "fråga": "Hur mycket köper Uppsala kommun in varor och tjänster för per år?",
-            "alternativ": ["1–2 miljarder kr", "3–4 miljarder kr", "5–6 miljarder kr", "8–10 miljarder kr"],
-            "rätt_svar": "5–6 miljarder kr",
-            "förklaring": "Uppsala kommun köper in varor och tjänster för cirka 5–6 miljarder kronor per år.",
-        },
-        {
-            "fråga": "Vad är målet för andelen resor med gång, cykel eller kollektivtrafik till 2028?",
-            "alternativ": ["60 procent", "67 procent", "72 procent", "77 procent"],
-            "rätt_svar": "77 procent",
-            "förklaring": "Andel resor med gång, cykel eller kollektivtrafik ska öka till 77 procent senast 2028. Utfall 2024 var 59 procent.",
-        },
-        {
-            "fråga": "Vilken organisation ansvarar för flest klimatåtgärder?",
-            "alternativ": ["GSN", "KS (Kommunstyrelsen)", "PBN", "UHEM"],
-            "rätt_svar": "KS (Kommunstyrelsen)",
-            "förklaring": "Kommunstyrelsen (KS) är ansvarig eller medansvarig för det största antalet klimatåtgärder.",
-        },
-        {
-            "fråga": "Vad innebär CCS/CCU som nämns i energiåtgärderna?",
-            "alternativ": [
-                "Central Climate System",
-                "Carbon Capture and Storage/Utilization",
-                "Community Climate Standard",
-                "Circular Carbon Supply",
-            ],
-            "rätt_svar": "Carbon Capture and Storage/Utilization",
-            "förklaring": "CCS (Carbon Capture and Storage) och CCU (Carbon Capture and Utilization) handlar om infångning och lagring eller användning av koldioxid.",
-        },
-        {
-            "fråga": "Hur många hektar områdesskydd ska kommunen öka med per år?",
-            "alternativ": ["10 hektar", "50 hektar", "100 hektar", "200 hektar"],
-            "rätt_svar": "100 hektar",
-            "förklaring": "Tillskapat områdesskydd (naturreservat och naturvårdsavtal) ska öka genomsnittligen med 100 hektar per år. Utfall 2024: 0 hektar.",
         },
     ]
     st.markdown(
@@ -155,14 +134,14 @@ if not st.session_state.quiz_answered:
         st.session_state.quiz_answered = True
         if selected == q["rätt_svar"]:
             st.session_state.quiz_score += 1
-            st.success(f"Rätt! ✅")
+            st.success("Rätt! ✅")
         else:
             st.error(f"Fel. Rätt svar: **{q['rätt_svar']}**")
         st.info(f"💡 {q['förklaring']}")
         st.rerun()
 else:
     if selected == q["rätt_svar"]:
-        st.success(f"Rätt! ✅")
+        st.success("Rätt! ✅")
     else:
         st.error(f"Fel. Rätt svar: **{q['rätt_svar']}**")
     st.info(f"💡 {q['förklaring']}")

@@ -1,317 +1,395 @@
 {
-  "title": "Budget Fr\u00e5gesport",
+  "title": "Klimatm\u00e5l Test",
   "questions": [
     {
-      "question": "Vilket \u00e4r Uppsala kommuns \u00f6vergripande m\u00e5l f\u00f6r \u00e5r 2030 enligt klimatbudgeten?",
+      "question": "Vilka \u00e4r Uppsala kommuns \u00f6vergripande tidsm\u00e5l f\u00f6r att bli klimatneutralt respektive klimatpositivt?",
       "answerOptions": [
         {
-          "text": "Ett klimatneutralt Uppsala.",
+          "text": "Klimatneutralt till 2030 och klimatpositivt senast 2050.",
           "isCorrect": true,
-          "rationale": "Detta \u00e5r markerar den f\u00f6rsta stora milstolpen i kommunens l\u00e5ngsiktiga milj\u00f6strategi f\u00f6r att eliminera nettoutsl\u00e4ppen av v\u00e4xthusgaser."
+          "rationale": "Enligt klimatbudgeten syftar verktyget till att n\u00e5 m\u00e5let om ett klimatneutralt Uppsala 2030 och ett klimatpositivt Uppsala senast 2050."
         },
         {
-          "text": "Ett klimatpositivt Uppsala.",
+          "text": "Klimatneutralt till 2025 och klimatpositivt senast 2040.",
           "isCorrect": false,
-          "rationale": "Detta \u00e4r det mer ambiti\u00f6sa slutm\u00e5let som enligt k\u00e4llmaterialet ska uppn\u00e5s senast \u00e5r 2050."
+          "rationale": "Dessa \u00e5rtal \u00e4r f\u00f6r ambiti\u00f6sa i f\u00f6rh\u00e5llande till de officiella m\u00e5len som anges i dokumentet."
         },
         {
-          "text": "Ett fossilfritt Uppsala.",
+          "text": "Klimatneutralt till 2040 och klimatpositivt senast 2060.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om fossilfrihet \u00e4r en del av processen, \u00e4r det specifika begrepp som anv\u00e4nds i m\u00e5let f\u00f6r 2030 klimatneutralitet."
+          "rationale": "Dessa \u00e5rtal ligger l\u00e4ngre fram i tiden \u00e4n vad kommunens m\u00e5l och budget f\u00f6reskriver."
         },
         {
-          "text": "Ett klimatanpassat Uppsala.",
+          "text": "Klimatneutralt till 2035 och klimatpositivt senast 2045.",
           "isCorrect": false,
-          "rationale": "Enligt k\u00e4llan \u00e4r m\u00e5ls\u00e4ttningen att Uppsala ska vara klimatanpassat senast \u00e5r 2040, inte 2030."
+          "rationale": "\u00c4ven om \u00e5rtalen ligger n\u00e4ra, matchar de inte de specifika milstolparna 2030 och 2050 som n\u00e4mns i k\u00e4llan."
         }
       ],
-      "hint": "Detta m\u00e5l fokuserar p\u00e5 att balansera utsl\u00e4ppen till en nettoniv\u00e5 av noll."
+      "hint": "T\u00e4nk p\u00e5 \u00e5rtalen som ofta associeras med Agenda 2030 och de l\u00e5ngsiktiga m\u00e5len i Parisavtalet."
     },
     {
-      "question": "Hur m\u00e5nga gemensamma fokusm\u00e5l har kommunfullm\u00e4ktige pekat ut f\u00f6r planperioden?",
+      "question": "Hur stor \u00e4r den \u00e5rliga minskning av v\u00e4xthusgasutsl\u00e4pp som kr\u00e4vs inom Uppsala f\u00f6r att inte \u00f6verskrida utsl\u00e4ppsutrymmet?",
       "answerOptions": [
         {
-          "text": "Tv\u00e5 fokusm\u00e5l.",
-          "isCorrect": false,
-          "rationale": "Detta antal \u00e4r f\u00f6r l\u00e5gt f\u00f6r att t\u00e4cka de breda omr\u00e5den som k\u00e4llan beskriver, s\u00e5som ekonomi, jobb, klimat och trygghet."
-        },
-        {
-          "text": "Fyra fokusm\u00e5l.",
+          "text": "$18-22\\%$ per \u00e5r.",
           "isCorrect": true,
-          "rationale": "De fyra m\u00e5len \u00e4r Ekonomin, Jobben, Klimatet och Tryggheten, vilka ska styra hela kommunkoncernens arbete."
+          "rationale": "Dokumentet anger att v\u00e4xthusgasutsl\u00e4ppen inom kommunens geografiska omr\u00e5de m\u00e5ste minska med denna procentsats \u00e5rligen f\u00f6r att h\u00e5lla sig inom utsl\u00e4ppsutrymmet."
         },
         {
-          "text": "Fem fokusm\u00e5l.",
+          "text": "$5-10\\%$ per \u00e5r.",
           "isCorrect": false,
-          "rationale": "Detta kan f\u00f6rv\u00e4xlas med de fem omr\u00e5dena i klimatbudgeten, men de politiska fokusm\u00e5len \u00e4r f\u00e4rre."
+          "rationale": "Denna niv\u00e5 \u00e4r f\u00f6r l\u00e5g f\u00f6r att n\u00e5 m\u00e5let om klimatneutralitet till 2030 enligt de ber\u00e4kningar som presenteras."
         },
         {
-          "text": "Sju fokusm\u00e5l.",
+          "text": "$30-35\\%$ per \u00e5r.",
           "isCorrect": false,
-          "rationale": "K\u00e4llan beskriver en mer koncentrerad styrning genom en kvartett av prioriterade omr\u00e5den."
+          "rationale": "\u00c4ven om en h\u00f6gre minskning vore positiv, \u00e4r det specifika intervallet som anges i budgeten l\u00e4gre."
+        },
+        {
+          "text": "$10-15\\%$ per \u00e5r.",
+          "isCorrect": false,
+          "rationale": "Detta intervall r\u00e4cker inte till enligt de indikatorer och m\u00e5l som fastst\u00e4llts f\u00f6r planperioden."
         }
       ],
-      "hint": "Antalet m\u00e5l motsvarar de huvudrubriker som presenteras i budgetsammanfattningen."
+      "hint": "Intervallet ligger n\u00e4ra en femtedel av de totala utsl\u00e4ppen varje \u00e5r."
     },
     {
-      "question": "Vilken betydande f\u00f6r\u00e4ndring f\u00f6resl\u00e5s i hemtj\u00e4nstens arbetss\u00e4tt f\u00f6r att \u00f6ka flexibiliteten?",
+      "text": "Vilket \u00e4r m\u00e5let f\u00f6r den genomsnittliga kront\u00e4ckningen av tr\u00e4d i Uppsala stad till \u00e5r 2034?",
       "answerOptions": [
         {
-          "text": "Inf\u00f6rande av minutstyrning f\u00f6r alla bes\u00f6k.",
-          "isCorrect": false,
-          "rationale": "K\u00e4llan anger att minutstyrning tv\u00e4rtom ska ers\u00e4ttas f\u00f6r att skapa ett mer behovscentrerat arbetss\u00e4tt."
-        },
-        {
-          "text": "Inf\u00f6rande av ramtid i st\u00e4llet f\u00f6r minutstyrning.",
+          "text": "$30\\%$.",
           "isCorrect": true,
-          "rationale": "Ramtid till\u00e5ter personalen att anpassa utf\u00f6randet mer efter individens \u00f6nskem\u00e5l under ett sammanh\u00e5llet arbetspass."
+          "rationale": "I avsnittet om klimatanpassning anges att den genomsnittliga kront\u00e4ckningen i staden ska vara $30\\%$ \u00e5r 2034 f\u00f6r att skapa ett bra lokalklimat."
         },
         {
-          "text": "Obligatorisk digital tillsyn nattetid.",
+          "text": "$15\\%$.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om teknik n\u00e4mns som ett st\u00f6d, beskrivs inte ramtid som en rent teknisk l\u00f6sning utan som en organisatorisk f\u00f6r\u00e4ndring."
+          "rationale": "Detta v\u00e4rde understiger kommunens ambition att anv\u00e4nda tr\u00e4d f\u00f6r svalka och luftkvalitet."
         },
         {
-          "text": "Heltidsarbete som enda anst\u00e4llningsform.",
+          "text": "$50\\%$.",
           "isCorrect": false,
-          "rationale": "Att \u00f6ka andelen heltider \u00e4r ett m\u00e5l, men det \u00e4r inte den specifika f\u00f6r\u00e4ndringen f\u00f6r att \u00f6ka flexibiliteten i brukarbes\u00f6ken."
+          "rationale": "Att n\u00e5 h\u00e4lften av stadens yta i kront\u00e4ckning \u00e4r en mycket h\u00f6g siffra som inte motsvarar det angivna m\u00e5let."
+        },
+        {
+          "text": "$25\\%$.",
+          "isCorrect": false,
+          "rationale": "Detta \u00e4r n\u00e4ra m\u00e5let, men dokumentet specificerar en n\u00e5got h\u00f6gre andel f\u00f6r att s\u00e4kerst\u00e4lla god skugga och luftkvalitet."
         }
       ],
-      "hint": "Det handlar om att g\u00e5 fr\u00e5n en strikt tidtabell f\u00f6r varje moment till en mer \u00f6ppen tidsram."
+      "hint": "M\u00e5let motsvarar n\u00e4stan en tredjedel av stadens yta."
     },
     {
-      "question": "Uppsala kommun \u00e4r f\u00f6rst i Sverige med en specifik budget\u00e5tg\u00e4rd. Vilken?",
+      "question": "Vad \u00e4r m\u00e5let f\u00f6r andelen ekologiska livsmedel i kommunens verksamheter till \u00e5r 2030?",
       "answerOptions": [
         {
-          "text": "Att ha en helt fossilfri fordonsflotta.",
-          "isCorrect": false,
-          "rationale": "M\u00e5nga kommuner arbetar med detta, men det beskrivs inte som en unik 'f\u00f6rst i Sverige'-\u00e5tg\u00e4rd i materialet."
-        },
-        {
-          "text": "Att inf\u00f6ra en klimatbudget integrerad i den ekonomiska budgeten.",
+          "text": "Minst $75\\%$.",
           "isCorrect": true,
-          "rationale": "K\u00e4llan lyfter fram att Uppsala som f\u00f6rsta kommun kopplar klimat\u00e5tg\u00e4rder direkt till den \u00e5rliga ekonomiska budgetprocessen."
+          "rationale": "Enligt avsnittet om ren luft och giftfri milj\u00f6 \u00e4r m\u00e5let att minst $75\\%$ av livsmedlen ska vara ekologiska \u00e5r 2030."
         },
         {
-          "text": "Att ge gratis kollektivtrafik till alla barn.",
+          "text": "Minst $50\\%$.",
           "isCorrect": false,
-          "rationale": "Materialet n\u00e4mner sommarsimskola och kollektivtrafikinvesteringar, men inte gratis resor f\u00f6r alla barn som en unik budgetnyhet."
+          "rationale": "Kommunens ambition \u00e4r h\u00f6gre \u00e4n h\u00e4lften f\u00f6r att driva p\u00e5 den h\u00e5llbara konsumtionen."
         },
         {
-          "text": "Att digitalisera all \u00e4ldreomsorg.",
+          "text": "Minst $90\\%$.",
           "isCorrect": false,
-          "rationale": "Digitalisering p\u00e5g\u00e5r, men det presenteras som ett verktyg snarare \u00e4n en unik budgetformalia."
+          "rationale": "\u00c4ven om m\u00e5let \u00e4r ambiti\u00f6st, har man inte satt ribban s\u00e5 h\u00f6gt som $90\\%$ i det aktuella dokumentet."
+        },
+        {
+          "text": "Minst $60\\%$.",
+          "isCorrect": false,
+          "rationale": "Detta v\u00e4rde \u00e4r l\u00e4gre \u00e4n det specifika m\u00e5l som fastst\u00e4llts f\u00f6r slutet av \u00e5rtiondet."
         }
       ],
-      "hint": "Det r\u00f6r kopplingen mellan milj\u00f6\u00e5tg\u00e4rder och finansiell styrning."
+      "hint": "T\u00e4nk p\u00e5 ett v\u00e4rde som motsvarar tre fj\u00e4rdedelar."
     },
     {
-      "question": "Vilket specifikt m\u00e5l finns f\u00f6r byggandet av LSS-bost\u00e4der fram till \u00e5r 2030?",
+      "question": "Vilken \u00e4r den dominerande k\u00e4llan till utsl\u00e4pp av kv\u00e4vedioxid och partiklar i Uppsala kommun?",
       "answerOptions": [
         {
-          "text": "Minst 50 nya l\u00e4genheter.",
-          "isCorrect": false,
-          "rationale": "Detta antal underskrider den ambition som k\u00e4llan anger f\u00f6r att m\u00f6ta behovet hos personer med funktionsneds\u00e4ttning."
-        },
-        {
-          "text": "Minst 100 nya l\u00e4genheter.",
+          "text": "Biltrafiken.",
           "isCorrect": true,
-          "rationale": "Enligt Fokusm\u00e5l 1 ska minst 100 LSS-l\u00e4genheter st\u00e5 klara till 2030 f\u00f6r att minska v\u00e4ntetiderna."
+          "rationale": "Under rubriken 'Ren luft och giftfri milj\u00f6' konstateras att biltrafiken \u00e4r den fr\u00e4msta k\u00e4llan till dessa luftf\u00f6roreningar lokalt."
         },
         {
-          "text": "Minst 200 nya l\u00e4genheter.",
+          "text": "Industriella processer.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om behovet \u00e4r stort, preciserar dokumentet ett m\u00e5l p\u00e5 h\u00e4lften av detta antal f\u00f6r den angivna perioden."
+          "rationale": "Uppsala \u00e4r fr\u00e4mst en tj\u00e4nste- och kunskapsstad, och industrins bidrag till luftf\u00f6roreningar \u00e4r mindre \u00e4n trafikens i detta sammanhang."
         },
         {
-          "text": "Minst 500 nya l\u00e4genheter.",
+          "text": "Vedeldning i bost\u00e4der.",
           "isCorrect": false,
-          "rationale": "Detta \u00e4r ett mycket h\u00f6gre tal \u00e4n det som fastst\u00e4llts i budgetuppdragen f\u00f6r \u00e5r 2030."
+          "rationale": "\u00c4ven om vedeldning p\u00e5verkar lokalt, pekar dokumentet ut trafiken som den dominerande faktorn f\u00f6r kv\u00e4vedioxid."
+        },
+        {
+          "text": "Lantbrukets maskiner.",
+          "isCorrect": false,
+          "rationale": "Maskiner i jordbruket bidrar till utsl\u00e4pp, men trafiken p\u00e5 v\u00e4garna st\u00e5r f\u00f6r den st\u00f6rsta samlade volymen i kommunen."
         }
       ],
-      "hint": "T\u00e4nk p\u00e5 det specifika tresiffriga tal som n\u00e4mns i samband med center f\u00f6r korttidsplatser."
+      "hint": "Fokusera p\u00e5 det transportmedel som de flesta inv\u00e5nare anv\u00e4nder dagligen p\u00e5 stadens gator."
     },
     {
-      "question": "Hur mycket extra tillf\u00f6rs kommunens verksamheter i 2026 \u00e5rs budget f\u00f6r att st\u00e4rka v\u00e4lf\u00e4rden?",
+      "question": "Senast vilket \u00e5r ska Uppsala vara ett klimatanpassat och robust samh\u00e4lle?",
       "answerOptions": [
         {
-          "text": "500 miljoner kronor.",
-          "isCorrect": false,
-          "rationale": "Detta belopp \u00e4r l\u00e4gre \u00e4n den satsning som n\u00e4mns i 'Barnens budget' f\u00f6r att t\u00e4cka skolst\u00f6d och fritid."
-        },
-        {
-          "text": "950 miljoner kronor.",
+          "text": "2040.",
           "isCorrect": true,
-          "rationale": "K\u00e4llan anger uttryckligen att 950 miljoner kronor tillf\u00f6rs f\u00f6r att investera i m\u00e4nniskors livschanser och st\u00e4rka skola och omsorg."
+          "rationale": "Uppdrag 26 tydligg\u00f6r att m\u00e5let f\u00f6r n\u00e4r Uppsala ska vara helt klimatanpassat \u00e4r satt till \u00e5r 2040."
         },
         {
-          "text": "1,2 miljarder kronor.",
+          "text": "2030.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om investeringarna \u00e4r stora, \u00e4r det belopp som specifikt n\u00e4mns som tillskott till verksamheterna 950 miljoner."
+          "rationale": "\u00c5r 2030 \u00e4r m\u00e5let f\u00f6r klimatneutralitet, men klimatanpassningen har en n\u00e5got l\u00e4ngre tidsfrist."
         },
         {
-          "text": "2,5 miljarder kronor.",
+          "text": "2050.",
           "isCorrect": false,
-          "rationale": "Detta belopp \u00f6verstiger det \u00e5rliga tillskottet till verksamheterna som beskrivs i inledningen av budgeten."
+          "rationale": "Detta \u00e5r \u00e4r kopplat till m\u00e5let om att bli klimatpositivt, snarare \u00e4n den specifika tidsplanen f\u00f6r klimatanpassning."
+        },
+        {
+          "text": "2045.",
+          "isCorrect": false,
+          "rationale": "Detta \u00e4r ett vanligt \u00e5rtal f\u00f6r nationella m\u00e5l, men Uppsala har satt 2040 som sitt lokala m\u00e5l f\u00f6r anpassning."
         }
       ],
-      "hint": "Det \u00e4r ett belopp som n\u00e4stan n\u00e5r upp till en miljard kronor."
+      "hint": "Detta m\u00e5l ligger exakt mittemellan m\u00e5len f\u00f6r klimatneutralitet och klimatpositivitet."
     },
     {
-      "question": "Vilket riktm\u00e4rke har Uppsala kommun f\u00f6r antal medarbetare per chef?",
+      "question": "Vad \u00e4r m\u00e5ls\u00e4ttningen f\u00f6r vattenkvaliteten i Fyris\u00e5n n\u00e4r det g\u00e4ller m\u00f6jligheten till bad?",
       "answerOptions": [
         {
-          "text": "Som mest 15 medarbetare.",
-          "isCorrect": false,
-          "rationale": "Detta vore ett mycket personalt\u00e4tt ledarskap som inte n\u00e4mns som det nuvarande m\u00e5let i dokumentet."
-        },
-        {
-          "text": "Som mest 30 medarbetare.",
+          "text": "Det ska vara m\u00f6jligt att bada i Fyris\u00e5n fr\u00e5n \u00e5r 2030.",
           "isCorrect": true,
-          "rationale": "Detta riktm\u00e4rke \u00e4r under inf\u00f6rande f\u00f6r att s\u00e4kerst\u00e4lla en h\u00e5llbar arbetsmilj\u00f6 och ett n\u00e4ra ledarskap."
+          "rationale": "Dokumentet anger att kommunen analyserar \u00e5tg\u00e4rder f\u00f6r att minska fosforhalten med m\u00e5let att bad ska vara m\u00f6jligt 2030."
         },
         {
-          "text": "Som mest 45 medarbetare.",
+          "text": "Det ska vara m\u00f6jligt att bada i Fyris\u00e5n fr\u00e5n \u00e5r 2026.",
           "isCorrect": false,
-          "rationale": "Dokumentet str\u00e4var efter f\u00e4rre medarbetare per chef \u00e4n detta f\u00f6r att motverka tystnadskultur och stress."
+          "rationale": "Detta datum ligger f\u00f6r n\u00e4ra i tiden f\u00f6r att de omfattande renings\u00e5tg\u00e4rderna ska ha gett full effekt."
         },
         {
-          "text": "Som mest 60 medarbetare.",
+          "text": "Bad ska vara m\u00f6jligt f\u00f6rst n\u00e4r Uppsala \u00e4r klimatpositivt 2050.",
           "isCorrect": false,
-          "rationale": "Detta anses vara f\u00f6r m\u00e5nga f\u00f6r att uppn\u00e5 de kvalitetsm\u00e5l som st\u00e4lls inom v\u00e5rd och omsorg."
+          "rationale": "Vattenkvalitetsm\u00e5len \u00e4r prioriterade att n\u00e5s betydligt tidigare \u00e4n det l\u00e5ngsiktiga klimatpositiva m\u00e5let."
+        },
+        {
+          "text": "Fyris\u00e5n \u00e4r endast avsedd f\u00f6r biologisk m\u00e5ngfald, inte f\u00f6r bad.",
+          "isCorrect": false,
+          "rationale": "Dokumentet uttrycker en tydlig politisk vilja och m\u00e5ls\u00e4ttning att \u00e5n ska kunna anv\u00e4ndas f\u00f6r rekreation och bad."
         }
       ],
-      "hint": "Det \u00e4r ett j\u00e4mnt tiotal som ofta n\u00e4mns i diskussioner om god arbetsmilj\u00f6 f\u00f6r chefer."
+      "hint": "M\u00e5let f\u00f6r badm\u00f6jligheter sammanfaller med \u00e5ret d\u00e5 kommunen ska vara klimatneutral."
     },
     {
-      "question": "Vilka \u00e4r de fem huvudomr\u00e5dena f\u00f6r klimat\u00e5tg\u00e4rder i klimatbudgeten?",
+      "question": "Var planeras den nya sp\u00e5rv\u00e4gen i Uppsala att anl\u00e4ggas enligt klimat\u00e5tg\u00e4rd 1.01?",
       "answerOptions": [
         {
-          "text": "Skola, omsorg, idrott, kultur och teknik.",
-          "isCorrect": false,
-          "rationale": "Dessa \u00e4r kommunala verksamhetsomr\u00e5den, men inte de sektorer som st\u00e5r f\u00f6r de st\u00f6rsta utsl\u00e4ppen."
-        },
-        {
-          "text": "Transport, energi, bygg och anl\u00e4ggning, jord- och skogsbruk samt konsumtion.",
+          "text": "Mellan Uppsala C och de syd\u00f6stra stadsdelarna via Gottsunda och Ultuna.",
           "isCorrect": true,
-          "rationale": "Dessa omr\u00e5den representerar majoriteten av utsl\u00e4ppen i Uppsala och \u00e4r d\u00e4rf\u00f6r huvudfokus i klimatbudgeten."
+          "rationale": "Detta definieras som en klimat\u00e5tg\u00e4rd f\u00f6r att utveckla ett attraktivt och kapacitetsstarkt kollektivtrafiksystem."
         },
         {
-          "text": "Vatten, avfall, parkering, turism och handel.",
+          "text": "Mellan Uppsala C och Gamla Uppsala via norra staden.",
           "isCorrect": false,
-          "rationale": "Vissa av dessa ing\u00e5r som delm\u00e4ngder, men de utg\u00f6r inte den officiella listan p\u00e5 de fem huvudomr\u00e5dena."
+          "rationale": "K\u00e4llmaterialet fokuserar p\u00e5 de syd\u00f6stra delarna f\u00f6r utbyggnad av sp\u00e5rv\u00e4g."
         },
         {
-          "text": "Flyg, industri, sj\u00f6fart, utbildning och IT.",
+          "text": "L\u00e4ngs med hela v\u00e4ltrafikerade str\u00e4ckan till Arlanda flygplats.",
           "isCorrect": false,
-          "rationale": "Klimatbudgeten fokuserar p\u00e5 de sektorer som kommunen har r\u00e5dighet \u00f6ver lokalt, snarare \u00e4n global industri och flyg."
+          "rationale": "T\u00e5gtrafik finns redan till Arlanda; kommunens sp\u00e5rv\u00e4gsplaner g\u00e4ller lokal stadstrafik."
+        },
+        {
+          "text": "En cirkul\u00e4r linje som binder samman alla ytteromr\u00e5den med varandra.",
+          "isCorrect": false,
+          "rationale": "Planen \u00e4r en radiell struktur fr\u00e5n centrum till specifika utbyggnadsomr\u00e5den i sydost."
         }
       ],
-      "hint": "T\u00e4nk p\u00e5 de sektorer i samh\u00e4llet som har st\u00f6rst p\u00e5verkan p\u00e5 utsl\u00e4pp av v\u00e4xthusgaser lokalt."
+      "hint": "Fokus ligger p\u00e5 expansion mot omr\u00e5den som Gottsunda och Ultuna."
     },
     {
-      "question": "Vad \u00e4r det l\u00e5ngsiktiga finansiella m\u00e5let f\u00f6r kommunens soliditet?",
+      "question": "Vilken princip ska enligt \u00e5tg\u00e4rd 3.06 prioriteras vid hantering av befintliga byggnader i Uppsala?",
       "answerOptions": [
         {
-          "text": "Cirka 15 procent.",
-          "isCorrect": false,
-          "rationale": "Detta \u00e4r betydligt l\u00e4gre \u00e4n det m\u00e5l som kommunen anser vara n\u00f6dv\u00e4ndigt f\u00f6r god ekonomisk hush\u00e5llning."
-        },
-        {
-          "text": "Cirka 27 procent.",
+          "text": "Att anpassa befintliga byggnader framf\u00f6r att riva och bygga nytt.",
           "isCorrect": true,
-          "rationale": "K\u00e4llan anger att soliditeten ska vara stabil och omkring 27 procent eller \u00f6kande \u00f6ver en tio\u00e5rsperiod."
+          "rationale": "Detta syftar till att uppn\u00e5 en mer resurseffektiv anv\u00e4ndning av den redan byggda milj\u00f6n och minska klimatavtrycket."
         },
         {
-          "text": "Cirka 50 procent.",
+          "text": "Att riva \u00e4ldre ineffektiva hus f\u00f6r att bygga 'plusenergihus'.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om h\u00f6g soliditet \u00e4r bra, \u00e4r m\u00e5let satt till en niv\u00e5 som balanserar sparande mot behovet av stora investeringar."
+          "rationale": "\u00c4ven om nya hus \u00e4r effektiva, betonar budgeten bevarande och anpassning f\u00f6r att spara p\u00e5 inb\u00e4ddad energi och material."
         },
         {
-          "text": "Cirka 75 procent.",
+          "text": "Att endast renovera byggnader med kulturhistoriskt v\u00e4rde.",
           "isCorrect": false,
-          "rationale": "Detta \u00e4r en orealistiskt h\u00f6g niv\u00e5 f\u00f6r en kommun med de omfattande investeringsplaner som beskrivs."
+          "rationale": "Principen om \u00e5terbruk och anpassning g\u00e4ller det allm\u00e4nna byggnadsbest\u00e5ndet, inte bara skyddade objekt."
+        },
+        {
+          "text": "Att s\u00e4lja av \u00e4ldre fastigheter till privata akt\u00f6rer f\u00f6r att minska kommunens ansvar.",
+          "isCorrect": false,
+          "rationale": "Dokumentet fokuserar p\u00e5 h\u00e5llbar f\u00f6rvaltning och resurseffektivitet, inte p\u00e5 avyttring av fastighetsbest\u00e5ndet."
         }
       ],
-      "hint": "Siffran ligger i det \u00f6vre tjugotalet."
+      "hint": "T\u00e4nk p\u00e5 konceptet '\u00e5terbruk' applicerat p\u00e5 hela byggnader."
     },
     {
-      "question": "Vilka tv\u00e5 stora infrastrukturprojekt n\u00e4mns som avg\u00f6rande f\u00f6r jobb och klimatsmart kollektivtrafik?",
+      "question": "Vilken teknik vill Uppsala kommun att v\u00e4rmeverket i Uppsala inf\u00f6r f\u00f6r att hantera koldioxidutsl\u00e4pp?",
       "answerOptions": [
         {
-          "text": "Ny flygplats och motorv\u00e4gsutbyggnad.",
-          "isCorrect": false,
-          "rationale": "Dessa projekt rimmar inte med de klimatm\u00e5l och den typ av kollektivtrafik som prioriteras i budgeten."
-        },
-        {
-          "text": "Fyrsp\u00e5r och sp\u00e5rv\u00e4g.",
+          "text": "Inf\u00e5ngning och lagring eller anv\u00e4ndning av koldioxid (CCS/CCU).",
           "isCorrect": true,
-          "rationale": "Dessa projekt beskrivs som centrala f\u00f6r att skapa kapacitetsstark trafik och m\u00e5nga nya arbetstillf\u00e4llen i regionen."
+          "rationale": "Klimat\u00e5tg\u00e4rd 2.18 anger att kommunen ska verka f\u00f6r att v\u00e4rmeverket inf\u00f6r teknik f\u00f6r att f\u00e5nga in koldioxid f\u00f6r lagring eller som r\u00e5vara."
         },
         {
-          "text": "Tunnelbana och citytunnel.",
+          "text": "Direktutsl\u00e4pp i atmosf\u00e4ren kombinerat med tr\u00e4dplantering p\u00e5 annan ort.",
           "isCorrect": false,
-          "rationale": "\u00c4ven om dessa \u00e4r kapacitetsstarka, \u00e4r det just fyrsp\u00e5r (t\u00e5g) och sp\u00e5rv\u00e4g som planeras i Uppsala."
+          "rationale": "Detta betraktas som traditionell klimatkompensation, medan dokumentet f\u00f6respr\u00e5kar teknisk inf\u00e5ngning vid k\u00e4llan."
         },
         {
-          "text": "Cykelbanor och eldrivna f\u00e4rjor.",
+          "text": "\u00d6verg\u00e5ng till enbart sol- och vindkraft f\u00f6r fj\u00e4rrv\u00e4rmeproduktion.",
           "isCorrect": false,
-          "rationale": "Cykelbanor \u00e4r viktiga, men de stora investeringarna i kapacitetsstark infrastruktur fokuserar p\u00e5 sp\u00e5rbunden trafik."
+          "rationale": "Sol och vind anv\u00e4nds fr\u00e4mst f\u00f6r el; fj\u00e4rrv\u00e4rmen i Uppsala kr\u00e4ver andra tekniska l\u00f6sningar som CCS f\u00f6r sina utsl\u00e4pp."
+        },
+        {
+          "text": "Avveckling av fj\u00e4rrv\u00e4rmen\u00e4tet till f\u00f6rm\u00e5n f\u00f6r lokala v\u00e4rmepumpar.",
+          "isCorrect": false,
+          "rationale": "Fj\u00e4rrv\u00e4rmen \u00e4r en central del av Uppsalas energisystem och fokus ligger p\u00e5 att g\u00f6ra den mer h\u00e5llbar, inte att avveckla den."
         }
       ],
-      "hint": "Det handlar om t\u00e5gkapacitet till Stockholm och ett nytt sp\u00e5rslag inne i staden."
+      "hint": "Leta efter en f\u00f6rkortning som handlar om 'Carbon Capture'."
     },
     {
-      "question": "Varf\u00f6r byter Uppsala kommun fr\u00e5n LOV till LOU inom \u00e4ldreomsorgen?",
+      "question": "N\u00e4r planeras inf\u00f6randet av fastighetsn\u00e4ra insamling av f\u00f6rpackningar med flerfacksk\u00e4rl f\u00f6r villor i Uppsala?",
       "answerOptions": [
         {
-          "text": "F\u00f6r att minska antalet anst\u00e4llda i kommunen.",
-          "isCorrect": false,
-          "rationale": "Syftet \u00e4r inte att minska personalstyrkan utan att f\u00f6r\u00e4ndra hur verksamheten styrs och planeras."
-        },
-        {
-          "text": "F\u00f6r att f\u00e5 st\u00f6rre r\u00e5dighet \u00f6ver var och n\u00e4r boenden uppf\u00f6rs.",
+          "text": "Fr\u00e5n och med 2025.",
           "isCorrect": true,
-          "rationale": "Genom LOU kan kommunen styra geografisk placering och omfattning b\u00e4ttre \u00e4n i ett renodlat valfrihetssystem."
+          "rationale": "I avsnittet om en giftfri milj\u00f6 n\u00e4mns att denna tj\u00e4nst ska f\u00f6renkla k\u00e4llsorteringen f\u00f6r villa\u00e4gare fr\u00e5n 2025."
         },
         {
-          "text": "F\u00f6r att f\u00f6rbjuda privata utf\u00f6rare helt.",
+          "text": "Fr\u00e5n och med 2028.",
           "isCorrect": false,
-          "rationale": "K\u00e4llan n\u00e4mner att privata utf\u00f6rare finns kvar, men att andelen id\u00e9burna verksamheter ska \u00f6ka."
+          "rationale": "Detta \u00e5r ligger efter den nuvarande planperioden f\u00f6r de f\u00f6rsta stegen i avfallshanteringens utveckling."
         },
         {
-          "text": "F\u00f6r att det \u00e4r ett lagkrav fr\u00e5n EU.",
+          "text": "Det inf\u00f6rdes redan 2020.",
           "isCorrect": false,
-          "rationale": "Beslutet presenteras som ett lokalt politiskt v\u00e4gval f\u00f6r \u00f6kad kontroll, inte som ett externt tv\u00e5ng."
+          "rationale": "Dokumentet beskriver detta som en kommande \u00e5tg\u00e4rd f\u00f6r att f\u00f6rb\u00e4ttra sorteringen."
+        },
+        {
+          "text": "Fr\u00e5n och med 2030.",
+          "isCorrect": false,
+          "rationale": "2030 \u00e4r m\u00e5let f\u00f6r klimatneutralitet, men avfalls\u00e5tg\u00e4rderna planeras genomf\u00f6ras tidigare."
         }
       ],
-      "hint": "S\u00f6k efter ett svar som r\u00f6r kommunens m\u00f6jlighet att planera stadens utveckling och v\u00e5rdbehov."
+      "hint": "\u00c5ret ligger precis innan den allm\u00e4nna insamlingen p\u00e5 stora ytor startar 2026."
     },
     {
-      "question": "Vilken k\u00e4lla anv\u00e4nds f\u00f6r att f\u00f6lja upp de nationella nyckeltalen f\u00f6r Agenda 2030?",
+      "question": "Vilken typ av jordar i jordbruket pekas ut som en k\u00e4lla till utsl\u00e4pp av v\u00e4xthusgaser i Uppsala?",
       "answerOptions": [
         {
-          "text": "Statistiska centralbyr\u00e5n (SCB).",
-          "isCorrect": false,
-          "rationale": "\u00c4ven om SCB tillhandah\u00e5ller data, n\u00e4mner dokumentet specifikt ett annat r\u00e5d f\u00f6r kommunala analyser."
-        },
-        {
-          "text": "R\u00e5det f\u00f6r fr\u00e4mjande av kommunala analyser (RKA).",
+          "text": "Torv- och gyttjejordar.",
           "isCorrect": true,
-          "rationale": "RKA har tagit fram de nyckeltal som Uppsala anv\u00e4nder f\u00f6r att m\u00e4ta framsteg inom de globala m\u00e5len."
+          "rationale": "Odling av dessa specifika jordtyper n\u00e4mns som en bidragande orsak till utsl\u00e4pp fr\u00e5n jordbrukssektorn."
         },
         {
-          "text": "FN:s klimatpanel (IPCC).",
+          "text": "Sandjordar.",
           "isCorrect": false,
-          "rationale": "IPCC fokuserar p\u00e5 global klimatvetenskap, inte p\u00e5 specifika svenska kommunala nyckeltal f\u00f6r Agenda 2030."
+          "rationale": "Sandjordar har generellt sett inte samma problematik med avg\u00e5ng av v\u00e4xthusgaser som organiska jordar."
         },
         {
-          "text": "Sveriges Kommuner och Regioner (SKR).",
+          "text": "Lermarker.",
           "isCorrect": false,
-          "rationale": "SKR \u00e4r en medlemsorganisation, medan k\u00e4llan specifikt pekar ut RKA som st\u00f6d f\u00f6r analysarbetet."
+          "rationale": "\u00c4ven om Uppsala har mycket lera, \u00e4r det de organiska torv- och gyttjejordarna som lyfts fram som problematiska ur utsl\u00e4ppssynpunkt."
+        },
+        {
+          "text": "Skogsmark med h\u00f6g bonitet.",
+          "isCorrect": false,
+          "rationale": "Skogsmark ses snarare som en m\u00f6jlighet f\u00f6r kolinlagring, \u00e4ven om skogsbruk i sig kan medf\u00f6ra utsl\u00e4pp."
         }
       ],
-      "hint": "Det \u00e4r en organisation med en trebokstavig f\u00f6rkortning som analyserar kommunal verksamhet."
+      "hint": "T\u00e4nk p\u00e5 jordm\u00e5ner som ofta finns i v\u00e5tmarker eller tidigare sj\u00f6bottnar."
+    },
+    {
+      "question": "Vad \u00e4r 'Klimathubben' enligt klimatbudgetens \u00f6vriga omr\u00e5den?",
+      "answerOptions": [
+        {
+          "text": "En plats f\u00f6r kommunikation om klimatf\u00f6r\u00e4ndringar och klimatomst\u00e4llning.",
+          "isCorrect": true,
+          "rationale": "\u00c5tg\u00e4rd 6.04 handlar om att etablera och utveckla denna hubb som ett forum f\u00f6r dialog och kunskapsspridning."
+        },
+        {
+          "text": "Ett tekniskt system f\u00f6r att styra kommunens eln\u00e4t.",
+          "isCorrect": false,
+          "rationale": "Detta skulle snarare sortera under energiomr\u00e5det och smarta eln\u00e4t, inte under kommunikation och engagemang."
+        },
+        {
+          "text": "En ny \u00e5tervinningscentral f\u00f6r farligt avfall.",
+          "isCorrect": false,
+          "rationale": "\u00c4ven om \u00e5tervinning \u00e4r viktigt, \u00e4r Klimathubben fokuserad p\u00e5 information och samverkan snarare \u00e4n fysisk avfallshantering."
+        },
+        {
+          "text": "En samlingsplats f\u00f6r kommunens samtliga elfordon.",
+          "isCorrect": false,
+          "rationale": "Fordonshantering sk\u00f6ts av respektive f\u00f6rvaltning/bolag och \u00e4r inte huvudsyftet med hubben."
+        }
+      ],
+      "hint": "Det \u00e4r en plattform som syftar till att \u00f6ka inv\u00e5narnas kunskap och delaktighet."
+    },
+    {
+      "question": "Vilket specifikt hot mot dricksvattenf\u00f6rs\u00f6rjningen prioriteras genom ut\u00f6kad rening i Uppsala?",
+      "answerOptions": [
+        {
+          "text": "PFAS-f\u00f6roreningar.",
+          "isCorrect": true,
+          "rationale": "Dokumentet betonar att rening av PFAS fr\u00e5n mark- och grundvatten \u00e4r avg\u00f6rande f\u00f6r att s\u00e4kra dricksvattnet."
+        },
+        {
+          "text": "Mikroplaster.",
+          "isCorrect": false,
+          "rationale": "Mikroplaster \u00e4r ett milj\u00f6problem, men dokumentet pekar ut PFAS som den kritiska f\u00f6roreningen som kr\u00e4ver ut\u00f6kad rening nu."
+        },
+        {
+          "text": "F\u00f6rh\u00f6jda salthalter fr\u00e5n v\u00e4gsalt.",
+          "isCorrect": false,
+          "rationale": "Salt kan p\u00e5verka brunnar, men det \u00e4r inte den prioriterade kemiska f\u00f6roreningen som n\u00e4mns i samband med ut\u00f6kad rening under planperioden."
+        },
+        {
+          "text": "Bakterier fr\u00e5n avloppsl\u00e4ckage.",
+          "isCorrect": false,
+          "rationale": "Detta \u00e4r en generell hygienfr\u00e5ga, medan PFAS lyfts fram som en specifik milj\u00f6farlig kemikalie som m\u00e5ste hanteras vid k\u00e4llan."
+        }
+      ],
+      "hint": "Det r\u00f6r sig om en grupp sv\u00e5rnedbrytbara \u00e4mnen som ofta kallas 'evighetskemikalier'."
+    },
+    {
+      "question": "Hur planerar Uppsala kommun att fr\u00e4mja biologisk m\u00e5ngfald i sin gr\u00f6nytesk\u00f6tsel enligt uppdrag 28?",
+      "answerOptions": [
+        {
+          "text": "Genom att \u00f6ka betesdrift och ers\u00e4tta gr\u00e4sklippning med sl\u00e5tter.",
+          "isCorrect": true,
+          "rationale": "Dessa metoder skapar variation och b\u00e4ttre livsmilj\u00f6er f\u00f6r t.ex. pollinerande insekter j\u00e4mf\u00f6rt med konventionell gr\u00e4sklippning."
+        },
+        {
+          "text": "Genom att plantera exotiska blommor som blommar \u00e5ret runt.",
+          "isCorrect": false,
+          "rationale": "Fokus ligger p\u00e5 att st\u00e4rka lokala ekosystem och naturliga milj\u00f6er snarare \u00e4n att inf\u00f6ra icke-inhemska arter."
+        },
+        {
+          "text": "Genom att asfaltera mindre ytor f\u00f6r att minska underh\u00e5llsbehovet.",
+          "isCorrect": false,
+          "rationale": "Asfaltering minskar den biologiska m\u00e5ngfalden; m\u00e5let \u00e4r tv\u00e4rtom att utveckla gr\u00f6n- och bl\u00e5strukturer."
+        },
+        {
+          "text": "Genom att f\u00f6rbjuda allm\u00e4nheten att betr\u00e4da kommunens parker.",
+          "isCorrect": false,
+          "rationale": "Kommunen vill tv\u00e4rtom s\u00e4kra god tillg\u00e5ng till natur och parker f\u00f6r inv\u00e5narnas h\u00e4lsa och livskvalitet."
+        }
+      ],
+      "hint": "T\u00e4nk p\u00e5 traditionella jordbruksmetoder som anv\u00e4nds f\u00f6r att h\u00e5lla marker \u00f6ppna."
     }
   ]
 }
