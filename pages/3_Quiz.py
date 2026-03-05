@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
 """Quiz — Testa din kunskap om klimatbudgeten."""
 
 import json
-import re
 import random
-import streamlit as st
-from lib.auth import check_password
-from lib.feedback import thumbs_feedback
-from lib.favorites import render_sidebar_favorites
-from lib.style import inject_custom_css
+import re
 from pathlib import Path
+
+import streamlit as st
+
+from lib.auth import check_password
+from lib.favorites import render_sidebar_favorites
+from lib.feedback import thumbs_feedback
+from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Quiz — Klimatbudget", page_icon="❓", layout="centered")
 
@@ -33,7 +34,7 @@ def _strip_latex(text: str) -> str:
 quiz_file = Path("assets/generated/quiz.json")
 
 if quiz_file.exists():
-    with open(quiz_file, "r", encoding="utf-8") as f:
+    with open(quiz_file, encoding="utf-8") as f:
         raw = json.load(f)
     # Normalize NLM format → internal format
     if "questions" in raw:
@@ -42,17 +43,25 @@ if quiz_file.exists():
             # NLM sometimes uses "text" instead of "question"
             question_text = q.get("question", q.get("text", ""))
             correct = next(
-                (_strip_latex(a["text"]) for a in q["answerOptions"] if a["isCorrect"]), ""
+                (_strip_latex(a["text"]) for a in q["answerOptions"] if a["isCorrect"]),
+                "",
             )
             correct_rationale = next(
-                (_strip_latex(a.get("rationale", "")) for a in q["answerOptions"] if a["isCorrect"]), ""
+                (
+                    _strip_latex(a.get("rationale", ""))
+                    for a in q["answerOptions"]
+                    if a["isCorrect"]
+                ),
+                "",
             )
-            quiz_data.append({
-                "fråga": _strip_latex(question_text),
-                "alternativ": [_strip_latex(a["text"]) for a in q["answerOptions"]],
-                "rätt_svar": correct,
-                "förklaring": correct_rationale,
-            })
+            quiz_data.append(
+                {
+                    "fråga": _strip_latex(question_text),
+                    "alternativ": [_strip_latex(a["text"]) for a in q["answerOptions"]],
+                    "rätt_svar": correct,
+                    "förklaring": correct_rationale,
+                }
+            )
     else:
         quiz_data = raw
     st.markdown("Testa din kunskap om Uppsala kommuns klimatbudget!")
@@ -67,7 +76,12 @@ else:
         },
         {
             "fråga": "Hur mycket ska växthusgasutsläppen minska per år under planperioden?",
-            "alternativ": ["5–10 procent", "10–15 procent", "18–22 procent", "25–30 procent"],
+            "alternativ": [
+                "5–10 procent",
+                "10–15 procent",
+                "18–22 procent",
+                "25–30 procent",
+            ],
             "rätt_svar": "18–22 procent",
             "förklaring": "Utsläppen ska minska med 18–22 procent per år för att utsläppsutrymmet inte ska överskridas.",
         },
@@ -85,7 +99,12 @@ else:
         },
         {
             "fråga": "Hur stora var de kommungeografiska utsläppen 2023?",
-            "alternativ": ["516 kton CO₂e", "716 kton CO₂e", "816 kton CO₂e", "916 kton CO₂e"],
+            "alternativ": [
+                "516 kton CO₂e",
+                "716 kton CO₂e",
+                "816 kton CO₂e",
+                "916 kton CO₂e",
+            ],
             "rätt_svar": "816 kton CO₂e",
             "förklaring": "Utfall 2023: 816 kiloton koldioxidekvivalenter (2022: 807).",
         },
@@ -113,10 +132,10 @@ total = len(quiz_data)
 idx = st.session_state.quiz_index
 
 if idx >= total:
-    st.success(
-        f"Quiz klar! Du fick **{st.session_state.quiz_score}/{total}** rätt."
+    st.success(f"Quiz klar! Du fick **{st.session_state.quiz_score}/{total}** rätt.")
+    thumbs_feedback(
+        "quiz", f"Resultat: {st.session_state.quiz_score}/{total}", key_suffix="result"
     )
-    thumbs_feedback("quiz", f"Resultat: {st.session_state.quiz_score}/{total}", key_suffix="result")
     if st.button("Starta om"):
         st.session_state.quiz_index = 0
         st.session_state.quiz_score = 0
@@ -134,7 +153,9 @@ if idx >= total:
 
 q_data_idx = st.session_state.quiz_order[idx]
 q = quiz_data[q_data_idx]
-shuffled_options = st.session_state.quiz_shuffled_options.get(q_data_idx, q["alternativ"])
+shuffled_options = st.session_state.quiz_shuffled_options.get(
+    q_data_idx, q["alternativ"]
+)
 
 st.progress((idx) / total, text=f"Fråga {idx + 1} av {total}")
 

@@ -1,16 +1,19 @@
-# -*- coding: utf-8 -*-
 """Podcast — Lyssna på AI-genererade podcastavsnitt om klimatbudgeten."""
 
 import json
-import streamlit as st
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
+
+import streamlit as st
+
 from lib.auth import check_password
-from lib.feedback import thumbs_feedback
 from lib.favorites import render_sidebar_favorites
+from lib.feedback import thumbs_feedback
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered")
+st.set_page_config(
+    page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered"
+)
 
 if not check_password():
     st.stop()
@@ -30,7 +33,7 @@ catalog_file = Path("assets/generated/podcast_catalog.json")
 
 # Initialize catalog from existing files if no catalog exists
 if catalog_file.exists():
-    with open(catalog_file, "r", encoding="utf-8") as f:
+    with open(catalog_file, encoding="utf-8") as f:
         catalog = json.load(f)
 else:
     catalog = []
@@ -38,15 +41,21 @@ else:
 # Auto-discover audio files not in catalog
 audio_dir = Path("assets/generated")
 existing_files = {p["file"] for p in catalog}
-for audio_file in sorted(list(audio_dir.glob("podcast*.wav")) + list(audio_dir.glob("podcast*.mp3"))):
+for audio_file in sorted(
+    list(audio_dir.glob("podcast*.wav")) + list(audio_dir.glob("podcast*.mp3"))
+):
     if audio_file.name not in existing_files:
         stat = audio_file.stat()
-        catalog.append({
-            "name": "Klimatbudgeten — djupdykning",
-            "description": "En AI-genererad genomgång av Uppsala kommuns klimatbudget.",
-            "file": audio_file.name,
-            "created": datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d"),
-        })
+        catalog.append(
+            {
+                "name": "Klimatbudgeten — djupdykning",
+                "description": "En AI-genererad genomgång av Uppsala kommuns klimatbudget.",
+                "file": audio_file.name,
+                "created": datetime.fromtimestamp(stat.st_mtime, tz=UTC).strftime(
+                    "%Y-%m-%d"
+                ),
+            }
+        )
 
 # Display podcasts
 if catalog:
@@ -94,26 +103,30 @@ with st.form("podcast_request", clear_on_submit=True):
 if submitted and prompt.strip():
     # Save the request
     if requests_file.exists():
-        with open(requests_file, "r", encoding="utf-8") as f:
+        with open(requests_file, encoding="utf-8") as f:
             requests = json.load(f)
     else:
         requests = []
 
-    requests.append({
-        "prompt": prompt.strip(),
-        "timestamp": datetime.now().isoformat(),
-        "status": "pending",
-    })
+    requests.append(
+        {
+            "prompt": prompt.strip(),
+            "timestamp": datetime.now().isoformat(),
+            "status": "pending",
+        }
+    )
 
     with open(requests_file, "w", encoding="utf-8") as f:
         json.dump(requests, f, ensure_ascii=False, indent=2)
 
-    st.success("Tack! Ditt förslag har sparats och kommer att genereras vid nästa batch-körning.")
+    st.success(
+        "Tack! Ditt förslag har sparats och kommer att genereras vid nästa batch-körning."
+    )
     st.caption("💾 Förslaget sparas lokalt i `feedback/podcast_requests.json`.")
 
 # Show pending requests
 if requests_file.exists():
-    with open(requests_file, "r", encoding="utf-8") as f:
+    with open(requests_file, encoding="utf-8") as f:
         requests = json.load(f)
     pending = [r for r in requests if r.get("status") == "pending"]
     if pending:

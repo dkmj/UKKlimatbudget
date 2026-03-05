@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
 """Chatt — Ställ frågor och brainstorma kring klimatbudgeten."""
 
 import json
+
 import streamlit as st
+
 from lib.auth import check_password
-from lib.feedback import thumbs_feedback
 from lib.favorites import render_sidebar_favorites
+from lib.feedback import thumbs_feedback
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Chatt — Klimatbudget", page_icon="💬", layout="centered")
@@ -19,10 +20,10 @@ render_sidebar_favorites()
 st.title("💬 Chatt: Klimatbudgeten")
 
 # Load document context
-with open("data/klimatbudget.json", "r", encoding="utf-8") as f:
+with open("data/klimatbudget.json", encoding="utf-8") as f:
     kb_data = json.load(f)
 
-with open("data/abbreviations.json", "r", encoding="utf-8") as f:
+with open("data/abbreviations.json", encoding="utf-8") as f:
     abbrevs = json.load(f)
 
 
@@ -30,7 +31,9 @@ def _build_context() -> str:
     """Build document context string for the LLM."""
     lines = ["Uppsala kommuns klimatbudget — sammanfattning:\n"]
     meta = kb_data["meta"]
-    lines.append(f"Mål: Klimatneutralt {meta['mål_klimatneutral']}, klimatpositivt {meta['mål_klimatpositiv']}.")
+    lines.append(
+        f"Mål: Klimatneutralt {meta['mål_klimatneutral']}, klimatpositivt {meta['mål_klimatpositiv']}."
+    )
     lines.append(f"Årlig utsläppsminskning: {meta['årlig_minskning_procent']}%.")
     lines.append(f"Utsläpp 2023: {meta['utsläpp_2023_kton']} kton CO₂e.\n")
 

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 """Uppsala Klimatbudget — Huvudsida."""
 
 import streamlit as st
+
 from lib.auth import check_password
 from lib.favorites import render_sidebar_favorites
 from lib.style import inject_custom_css

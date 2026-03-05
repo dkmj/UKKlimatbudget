@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Star/favorite system for klimatåtgärder."""
 
 import streamlit as st
@@ -50,9 +49,7 @@ def _render_sidebar_linkroll():
         st.markdown("---")
         st.markdown("### 🔗 Länkar")
         for link in LINKS:
-            st.markdown(
-                f"{link['emoji']} [{link['label']}]({link['url']})"
-            )
+            st.markdown(f"{link['emoji']} [{link['label']}]({link['url']})")
 
 
 def render_sidebar_favorites():
@@ -69,7 +66,9 @@ def render_sidebar_favorites():
                 with col1:
                     st.caption(f"**{f['nr']}** — {f['text']}")
                 with col2:
-                    if st.button("✕", key=f"sidebar_unfav_{f['nr']}", help="Ta bort favorit"):
+                    if st.button(
+                        "✕", key=f"sidebar_unfav_{f['nr']}", help="Ta bort favorit"
+                    ):
                         remove_favorite(f["nr"])
                         st.rerun()
 

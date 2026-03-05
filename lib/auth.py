@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 """Simple password authentication for Streamlit."""
 
-import streamlit as st
-import hashlib
 import json
 from datetime import datetime
 from pathlib import Path
+
+import streamlit as st
 
 FEEDBACK_DIR = Path("feedback")
 SESSION_LOG = FEEDBACK_DIR / "sessions.jsonl"
@@ -29,8 +28,8 @@ def check_password() -> bool:
 
     try:
         password = st.secrets["app_password"]
-    except Exception:
-        password = "klimatbudget2026"
+    except (KeyError, FileNotFoundError):
+        password = "klimatbudget2026"  # noqa: S105
 
     st.markdown("## 🔐 Logga in")
     st.markdown("Ange lösenord för att komma åt appen.")

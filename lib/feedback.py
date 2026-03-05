@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 """Feedback collection with thumbs up/down."""
 
-import streamlit as st
 import json
 from datetime import datetime
 from pathlib import Path
+
+import streamlit as st
 
 FEEDBACK_DIR = Path("feedback")
 FEEDBACK_FILE = FEEDBACK_DIR / "feedback.jsonl"
@@ -28,7 +28,9 @@ def thumbs_feedback(component: str, context: str = "", key_suffix: str = ""):
     key = f"fb_{component}_{key_suffix}"
 
     if key in st.session_state and st.session_state[key] is not None:
-        st.caption(f"Tack för din feedback! ({'👍' if st.session_state[key] == 'up' else '👎'})")
+        st.caption(
+            f"Tack för din feedback! ({'👍' if st.session_state[key] == 'up' else '👎'})"
+        )
         return
 
     cols = st.columns([1, 1, 8])
@@ -49,7 +51,7 @@ def load_feedback() -> list[dict]:
     if not FEEDBACK_FILE.exists():
         return []
     entries = []
-    with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
+    with open(FEEDBACK_FILE, encoding="utf-8") as f:
         for line in f:
             if line.strip():
                 entries.append(json.loads(line))

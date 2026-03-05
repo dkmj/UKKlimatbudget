@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
 """Översikt — Dashboard med nyckeltal och visualiseringar."""
 
 import json
-import streamlit as st
+
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import pandas as pd
+import streamlit as st
+
 from lib.auth import check_password
-from lib.feedback import thumbs_feedback
 from lib.favorites import render_sidebar_favorites
+from lib.feedback import thumbs_feedback
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Översikt — Klimatbudget", page_icon="📊", layout="wide")
@@ -20,10 +21,10 @@ inject_custom_css()
 render_sidebar_favorites()
 
 # Load data
-with open("data/klimatbudget.json", "r", encoding="utf-8") as f:
+with open("data/klimatbudget.json", encoding="utf-8") as f:
     data = json.load(f)
 
-with open("data/abbreviations.json", "r", encoding="utf-8") as f:
+with open("data/abbreviations.json", encoding="utf-8") as f:
     abbrevs = json.load(f)
 
 meta = data["meta"]
@@ -85,20 +86,22 @@ for i, o in enumerate(områden):
         f'<div style="display:flex;align-items:center;margin-right:20px;margin-bottom:4px;">'
         f'<div style="width:14px;height:14px;background:{area_colors[i]};'
         f'border-radius:3px;margin-right:6px;flex-shrink:0;"></div>'
-        f'<span>{o["namn"]} ({count})</span></div>'
+        f"<span>{o['namn']} ({count})</span></div>"
     )
 
-waffle_html = f'''<div style="display:inline-grid;grid-template-columns:repeat(12, 30px);gap:4px;margin-bottom:16px;">
+waffle_html = f"""<div style="display:inline-grid;grid-template-columns:repeat(12, 30px);gap:4px;margin-bottom:16px;">
 {"".join(waffle_squares)}
 </div>
 <div style="display:flex;flex-wrap:wrap;font-size:0.85em;">
 {"".join(legend_items)}
 </div>
-<div style="font-size:0.85em;color:#E8E0D8;margin-top:4px;opacity:0.8;">Totalt {total_actions} åtgärder</div>'''
+<div style="font-size:0.85em;color:#E8E0D8;margin-top:4px;opacity:0.8;">Totalt {total_actions} åtgärder</div>"""
 
 st.markdown(waffle_html, unsafe_allow_html=True)
 
-thumbs_feedback("oversikt_area_chart", "Diagram: åtgärder per område", key_suffix="areas")
+thumbs_feedback(
+    "oversikt_area_chart", "Diagram: åtgärder per område", key_suffix="areas"
+)
 
 # --- Responsibility distribution ---
 st.subheader("Ansvar — vilka organisationer bär flest åtgärder?")
@@ -141,7 +144,9 @@ fig_resp.update_layout(
 fig_resp.update_traces(textposition="outside")
 st.plotly_chart(fig_resp, use_container_width=True)
 
-thumbs_feedback("oversikt_resp_chart", "Diagram: ansvar per organisation", key_suffix="resp")
+thumbs_feedback(
+    "oversikt_resp_chart", "Diagram: ansvar per organisation", key_suffix="resp"
+)
 
 # --- Emissions trajectory (simplified) ---
 st.subheader("Utsläppsbana — kommungeografiskt")
@@ -153,7 +158,16 @@ st.info(
 
 # Simple projection based on known data points
 years = list(range(2015, 2051))
-historical = {2015: 1050, 2016: 1020, 2017: 1000, 2018: 980, 2019: 950, 2020: 880, 2022: 807, 2023: 816}
+historical = {
+    2015: 1050,
+    2016: 1020,
+    2017: 1000,
+    2018: 980,
+    2019: 950,
+    2020: 880,
+    2022: 807,
+    2023: 816,
+}
 
 hist_years = sorted(historical.keys())
 hist_values = [historical[y] for y in hist_years]

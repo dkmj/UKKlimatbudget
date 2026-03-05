@@ -1,7 +1,7 @@
 [project]
 name = "uklimatbudget"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI-powered interactive explorer for Uppsala kommun's klimatbudget"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -10,3 +10,20 @@ dependencies = [
     "plotly>=6.6.0",
     "streamlit>=1.55.0",
 ]
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "S", "BLE", "DTZ", "COM"]
+ignore = [
+    "RUF001",   # ambiguous unicode — intentional Swedish text (en-dashes, å ä ö)
+    "COM812",   # trailing comma — conflicts with ruff formatter
+    "S105",     # hardcoded password — fallback default, overridden via secrets
+    "INP001",   # implicit namespace package — Streamlit pages convention
+    "E501",     # line too long — handled by formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"pages/*" = ["DTZ005", "BLE001", "PTH123"]  # Streamlit pages: relaxed rules
+"lib/*" = ["DTZ005", "PTH123"]              # lib helpers: relaxed path/datetime rules

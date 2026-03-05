@@ -1,18 +1,19 @@
-# -*- coding: utf-8 -*-
 """Utforska — Sök och filtrera bland alla klimatåtgärder."""
 
 import json
-import streamlit as st
+
 import pandas as pd
+import streamlit as st
+
 from lib.auth import check_password
-from lib.feedback import thumbs_feedback
 from lib.favorites import (
-    is_favorite,
+    MAX_FAVORITES,
     add_favorite,
+    is_favorite,
     remove_favorite,
     render_sidebar_favorites,
-    MAX_FAVORITES,
 )
+from lib.feedback import thumbs_feedback
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Utforska — Klimatbudget", page_icon="🔍", layout="wide")
@@ -23,10 +24,10 @@ if not check_password():
 inject_custom_css()
 render_sidebar_favorites()
 
-with open("data/klimatbudget.json", "r", encoding="utf-8") as f:
+with open("data/klimatbudget.json", encoding="utf-8") as f:
     data = json.load(f)
 
-with open("data/abbreviations.json", "r", encoding="utf-8") as f:
+with open("data/abbreviations.json", encoding="utf-8") as f:
     abbrevs = json.load(f)
 
 områden = data["områden"]
@@ -38,9 +39,9 @@ st.markdown("Sök, filtrera och jämför alla 72 klimatåtgärder i budgeten.")
 st.markdown(
     '<a href="#korsreferens" '
     'style="display:inline-block;padding:8px 20px;background:#5B2D8E;color:#F0EDE8;'
-    'border-radius:8px;text-decoration:none;font-weight:500;font-size:0.9em;'
+    "border-radius:8px;text-decoration:none;font-weight:500;font-size:0.9em;"
     'border:1px solid #7B2D8E;margin-bottom:1rem;">'
-    '📋 Gå till korsreferens per organisation ⬇️</a>',
+    "📋 Gå till korsreferens per organisation ⬇️</a>",
     unsafe_allow_html=True,
 )
 
@@ -71,7 +72,14 @@ with col1:
     )
 
 with col2:
-    all_orgs = sorted(set(r for row in rows for r in row["Ansvariga_list"] if r != "Alla nämnder och bolag"))
+    all_orgs = sorted(
+        set(
+            r
+            for row in rows
+            for r in row["Ansvariga_list"]
+            if r != "Alla nämnder och bolag"
+        )
+    )
     selected_org = st.multiselect(
         "Filtrera efter ansvarig",
         options=all_orgs,
@@ -81,7 +89,9 @@ with col2:
     )
 
 with col3:
-    search_text = st.text_input("Sök i åtgärdstext", placeholder="t.ex. cykel, energi, plast...")
+    search_text = st.text_input(
+        "Sök i åtgärdstext", placeholder="t.ex. cykel, energi, plast..."
+    )
 
 # Apply filters
 filtered = df.copy()
@@ -91,7 +101,9 @@ if selected_area:
 
 if selected_org:
     filtered = filtered[
-        filtered["Ansvariga_list"].apply(lambda orgs: any(o in orgs for o in selected_org))
+        filtered["Ansvariga_list"].apply(
+            lambda orgs: any(o in orgs for o in selected_org)
+        )
     ]
 
 if search_text:
@@ -120,15 +132,17 @@ for _, row in filtered.iterrows():
 
         # Star/favorite toggle (replaces thumbs up/down)
         if is_favorite(row["Nr"]):
-            if st.button(f"★ Ta bort favorit", key=f"unfav_{row['Nr']}"):
+            if st.button("★ Ta bort favorit", key=f"unfav_{row['Nr']}"):
                 remove_favorite(row["Nr"])
                 st.rerun()
         else:
             favs = len([f for f in st.session_state.get("favorites", [])])
             if favs >= MAX_FAVORITES:
-                st.caption(f"☆ Favoritlistan är full ({MAX_FAVORITES}/{MAX_FAVORITES}). Ta bort en först.")
+                st.caption(
+                    f"☆ Favoritlistan är full ({MAX_FAVORITES}/{MAX_FAVORITES}). Ta bort en först."
+                )
             else:
-                if st.button(f"☆ Lägg till favorit", key=f"fav_{row['Nr']}"):
+                if st.button("☆ Lägg till favorit", key=f"fav_{row['Nr']}"):
                     add_favorite(row["Nr"], row["Åtgärd"], row["Område"])
                     st.rerun()
 

@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 """Shared styling — background image and color palette from Flower Wild photo."""
 
 import base64
-import streamlit as st
 from pathlib import Path
+
+import streamlit as st
 
 # Color palette extracted from C.Schubert's "Flower Wild" photograph
 PALETTE = {

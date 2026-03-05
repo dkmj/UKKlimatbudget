@@ -1,18 +1,21 @@
-# -*- coding: utf-8 -*-
 """Presentation & Begreppsträd — Bildspel och interaktivt begreppsträd."""
 
-import json
 import base64
+import json
 import re
+from pathlib import Path
+
 import streamlit as st
 import streamlit.components.v1 as components
-from pathlib import Path
+
 from lib.auth import check_password
-from lib.feedback import thumbs_feedback
 from lib.favorites import render_sidebar_favorites
+from lib.feedback import thumbs_feedback
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Presentation — Klimatbudget", page_icon="📑", layout="wide")
+st.set_page_config(
+    page_title="Presentation — Klimatbudget", page_icon="📑", layout="wide"
+)
 
 if not check_password():
     st.stop()
@@ -25,7 +28,9 @@ st.markdown("AI-genererad presentation och begreppsträd för möten och worksho
 
 # --- Slides ---
 slides_dir = Path("assets/generated")
-slide_files = list(slides_dir.glob("slides*.pdf")) + list(slides_dir.glob("slides*.pptx"))
+slide_files = list(slides_dir.glob("slides*.pdf")) + list(
+    slides_dir.glob("slides*.pptx")
+)
 
 if slide_files:
     for slide_file in sorted(slide_files):
@@ -44,7 +49,7 @@ if slide_files:
 
         # Render PDF using pdf.js for reliable cross-browser display
         b64 = base64.b64encode(pdf_bytes).decode()
-        pdf_html = f'''<!DOCTYPE html>
+        pdf_html = f"""<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -92,7 +97,7 @@ loadingTask.promise.then(pdf => {{
     }}
 }});
 </script>
-</body></html>'''
+</body></html>"""
         components.html(pdf_html, height=800, scrolling=True)
 
         thumbs_feedback("presentation", slide_file.stem, key_suffix=slide_file.stem)
@@ -105,12 +110,12 @@ st.subheader("🌳 Begreppsträd")
 
 mind_map_file = slides_dir / "mind_map.json"
 if mind_map_file.exists():
-    with open(mind_map_file, "r", encoding="utf-8") as f:
+    with open(mind_map_file, encoding="utf-8") as f:
         mind_map_data = json.load(f)
 
     # Build interactive D3.js collapsible tree with dark theme
     mind_map_json = json.dumps(mind_map_data, ensure_ascii=False)
-    tree_html = f'''<!DOCTYPE html>
+    tree_html = f"""<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -327,18 +332,20 @@ function diagonal(s, d) {{
             ${{(s.y + d.y) / 2}} ${{d.x}},
             ${{d.y}} ${{d.x}}`;
 }}
-</script></body></html>'''
+</script></body></html>"""
 
     components.html(tree_html, height=700, scrolling=False)
-    st.caption("💡 Klicka på en nod för att expandera/fälla ihop grenar. "
-               "Använd knappen \"Ladda ner som bild\" för en fullständig JPG.")
+    st.caption(
+        "💡 Klicka på en nod för att expandera/fälla ihop grenar. "
+        'Använd knappen "Ladda ner som bild" för en fullständig JPG.'
+    )
 
     thumbs_feedback("begreppsträd", "begreppsträd", key_suffix="mind_map")
 else:
     # Check for old HTML format
     old_html = slides_dir / "mind_map.html"
     if old_html.exists():
-        with open(old_html, "r", encoding="utf-8") as f:
+        with open(old_html, encoding="utf-8") as f:
             html_content = f.read()
         components.html(html_content, height=700, scrolling=True)
         thumbs_feedback("begreppsträd", "begreppsträd_html", key_suffix="mind_map_html")
@@ -351,7 +358,7 @@ if flashcards_file.exists():
     st.markdown("---")
     st.subheader("🃏 Flashkort")
 
-    with open(flashcards_file, "r", encoding="utf-8") as f:
+    with open(flashcards_file, encoding="utf-8") as f:
         fc_data = json.load(f)
 
     cards = fc_data.get("cards", [])
@@ -365,7 +372,9 @@ if flashcards_file.exists():
         card_idx = st.session_state.fc_index
         card = cards[card_idx]
 
-        st.progress((card_idx + 1) / len(cards), text=f"Kort {card_idx + 1} av {len(cards)}")
+        st.progress(
+            (card_idx + 1) / len(cards), text=f"Kort {card_idx + 1} av {len(cards)}"
+        )
 
         # Strip LaTeX from flashcard text
         def strip_latex(text):
@@ -379,11 +388,17 @@ if flashcards_file.exists():
 
         col1, col2, col3 = st.columns([1, 1, 1])
         with col1:
-            if st.button("⬅️ Föregående", disabled=card_idx == 0, key=f"fc_prev_{card_idx}"):
+            if st.button(
+                "⬅️ Föregående", disabled=card_idx == 0, key=f"fc_prev_{card_idx}"
+            ):
                 st.session_state.fc_index -= 1
                 st.rerun()
         with col3:
-            if st.button("Nästa ➡️", disabled=card_idx >= len(cards) - 1, key=f"fc_next_{card_idx}"):
+            if st.button(
+                "Nästa ➡️",
+                disabled=card_idx >= len(cards) - 1,
+                key=f"fc_next_{card_idx}",
+            ):
                 st.session_state.fc_index += 1
                 st.rerun()
 
