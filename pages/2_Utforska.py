@@ -36,7 +36,7 @@ st.markdown("Sök, filtrera och jämför alla 72 klimatåtgärder i budgeten.")
 
 # Cross-reference navigation button
 st.markdown(
-    '<a href="#korsreferens-tg-rder-per-organisation" '
+    '<a href="#korsreferens" '
     'style="display:inline-block;padding:8px 20px;background:#5B2D8E;color:#F0EDE8;'
     'border-radius:8px;text-decoration:none;font-weight:500;font-size:0.9em;'
     'border:1px solid #7B2D8E;margin-bottom:1rem;">'
@@ -135,6 +135,7 @@ for _, row in filtered.iterrows():
 st.markdown("---")
 
 # --- Cross-reference view ---
+st.markdown('<div id="korsreferens"></div>', unsafe_allow_html=True)
 st.subheader("Korsreferens: Åtgärder per organisation")
 st.markdown("Välj en organisation för att se alla dess åtgärder samlade.")
 
