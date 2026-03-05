@@ -20,7 +20,25 @@ quiz_file = Path("assets/generated/quiz.json")
 
 if quiz_file.exists():
     with open(quiz_file, "r", encoding="utf-8") as f:
-        quiz_data = json.load(f)
+        raw = json.load(f)
+    # Normalize NLM format → internal format
+    if "questions" in raw:
+        quiz_data = []
+        for q in raw["questions"]:
+            correct = next(
+                (a["text"] for a in q["answerOptions"] if a["isCorrect"]), ""
+            )
+            correct_rationale = next(
+                (a["rationale"] for a in q["answerOptions"] if a["isCorrect"]), ""
+            )
+            quiz_data.append({
+                "fråga": q["question"],
+                "alternativ": [a["text"] for a in q["answerOptions"]],
+                "rätt_svar": correct,
+                "förklaring": correct_rationale,
+            })
+    else:
+        quiz_data = raw
     st.markdown("Testa din kunskap om Uppsala kommuns klimatbudget!")
 else:
     # Built-in fallback quiz based on the document

@@ -31,5 +31,8 @@ Thumbs.db
 *.mp3
 *.mp4
 
-# But keep generated content markers
+# Keep generated content (except large audio/video)
 !assets/generated/.gitkeep
+!assets/generated/*.json
+!assets/generated/*.html
+!assets/generated/*.pdf

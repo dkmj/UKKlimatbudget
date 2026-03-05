@@ -51,12 +51,29 @@ if slide_files:
 
         thumbs_feedback("presentation", slide_file.stem, key_suffix=slide_file.stem)
 else:
-    st.warning(
-        "Ingen presentation har genererats ännu.\n\n"
-        "Kör följande för att generera:\n"
-        "```bash\n"
-        "notebooklm use <notebook-id>\n"
-        'notebooklm generate slide-deck "presentation av klimatbudgeten"\n'
-        "notebooklm download slide-deck -o assets/generated/slides.pdf\n"
-        "```"
-    )
+    st.info("Ingen presentation har genererats ännu.")
+
+# --- Mind Map ---
+st.markdown("---")
+st.subheader("🧠 Tankekarta")
+
+mind_map_files = list(slides_dir.glob("mind_map*"))
+if mind_map_files:
+    for mm_file in sorted(mind_map_files):
+        if mm_file.suffix == ".html":
+            with open(mm_file, "r", encoding="utf-8") as f:
+                html_content = f.read()
+            import streamlit.components.v1 as components
+
+            components.html(html_content, height=700, scrolling=True)
+
+            with open(mm_file, "rb") as f:
+                st.download_button(
+                    label="📥 Ladda ner tankekarta (HTML)",
+                    data=f.read(),
+                    file_name=mm_file.name,
+                    mime="text/html",
+                )
+        thumbs_feedback("mind_map", mm_file.stem, key_suffix=mm_file.stem)
+else:
+    st.info("Ingen tankekarta har genererats ännu.")
