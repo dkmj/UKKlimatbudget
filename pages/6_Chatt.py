@@ -132,6 +132,9 @@ for i, msg in enumerate(st.session_state.messages):
         if msg["role"] == "assistant":
             thumbs_feedback("chatt", msg["content"][:50], key_suffix=f"chat_{i}")
 
+# Model info (shown below the chat input area)
+st.caption("Gemini 2.5 Flash · Free Tier: 15 req/min, 1 500 req/dag, 1M tokens/dag")
+
 # Chat input
 if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
     # Re-check rate limit before making the API call
@@ -147,8 +150,12 @@ if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
     with st.chat_message("assistant"):
         with st.spinner("Tänker..."):
             try:
+                # Gemini expects role "model", not "assistant"
                 history = [
-                    {"role": m["role"], "parts": [m["content"]]}
+                    {
+                        "role": "model" if m["role"] == "assistant" else m["role"],
+                        "parts": [m["content"]],
+                    }
                     for m in st.session_state.messages[:-1]
                 ]
                 chat = model.start_chat(history=history)
@@ -158,7 +165,28 @@ if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
                 answer = response.text
                 increment_request()
             except Exception as e:
-                answer = f"Ett fel uppstod: {e}"
+                err = str(e).lower()
+                if "quota" in err or "rate" in err or "429" in err:
+                    answer = (
+                        "⏳ **För många anrop just nu.** "
+                        "Vänta en minut och försök igen."
+                    )
+                elif "api key" in err or "authenticate" in err or "401" in err:
+                    answer = (
+                        "🔑 **API-nyckelfel.** "
+                        "Kontrollera att din Gemini-nyckel är giltig."
+                    )
+                elif "timeout" in err or "deadline" in err:
+                    answer = (
+                        "⌛ **Tidsgräns överskreds.** "
+                        "Försök igen med en kortare fråga."
+                    )
+                else:
+                    answer = (
+                        "⚠️ **Något gick fel.** "
+                        "Försök igen om en stund. "
+                        f"(Teknisk info: {type(e).__name__})"
+                    )
 
         st.markdown(answer)
         st.session_state.messages.append({"role": "assistant", "content": answer})
