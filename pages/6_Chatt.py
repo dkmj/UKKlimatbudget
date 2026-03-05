@@ -7,6 +7,7 @@ import streamlit as st
 from lib.auth import check_password
 from lib.favorites import render_sidebar_favorites
 from lib.feedback import thumbs_feedback
+from lib.rate_limit import check_rate_limit, increment_request
 from lib.style import inject_custom_css
 
 st.set_page_config(page_title="Chatt — Klimatbudget", page_icon="💬", layout="centered")
@@ -50,6 +51,16 @@ def _build_context() -> str:
 
     return "\n".join(lines)
 
+
+# --- Rate limit check ---
+allowed, used_today, daily_limit = check_rate_limit()
+
+if not allowed:
+    st.error(
+        f"🛑 Daglig gräns nådd ({daily_limit} frågor). Chatten öppnar igen imorgon."
+    )
+    st.caption(f"Användning idag: {used_today}/{daily_limit}")
+    st.stop()
 
 # Try to use Gemini
 gemini_available = False
@@ -99,6 +110,7 @@ st.markdown(
     "Ställ frågor om klimatbudgeten, be om analyser, jämförelser "
     "eller brainstorma kring prioriteringar."
 )
+st.caption(f"📊 Frågor idag: {used_today}/{daily_limit}")
 
 SYSTEM_PROMPT = (
     "Du är en expert på Uppsala kommuns klimatbudget. "
@@ -122,6 +134,12 @@ for i, msg in enumerate(st.session_state.messages):
 
 # Chat input
 if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
+    # Re-check rate limit before making the API call
+    allowed, used_today, daily_limit = check_rate_limit()
+    if not allowed:
+        st.error(f"🛑 Daglig gräns nådd ({daily_limit}). Försök igen imorgon.")
+        st.stop()
+
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -138,6 +156,7 @@ if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
                     f"SYSTEM: {SYSTEM_PROMPT}\n\nUSER: {prompt}"
                 )
                 answer = response.text
+                increment_request()
             except Exception as e:
                 answer = f"Ett fel uppstod: {e}"
 

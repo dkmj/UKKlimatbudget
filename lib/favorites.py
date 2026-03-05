@@ -1,10 +1,32 @@
 """Star/favorite system for klimatåtgärder."""
 
+from pathlib import Path
+
 import streamlit as st
 
 MAX_FAVORITES = 10
 
+# ---------------------------------------------------------------------------
+# Linkroll — external resources shown at the bottom of the sidebar.
+# Add new entries here as {label, url, emoji} dicts.
+# ---------------------------------------------------------------------------
+LINKS = [
+    {
+        "label": "Klimatbudget — Uppsala kommun",
+        "url": "https://www.uppsala.se/kommun-och-politik/kommunens-mal-och-budget/mal-och-budget/klimatbudget/",
+        "emoji": "🌍",
+    },
+]
 
+# Deep-research report (shown as its own mini-section with PDF download + web link).
+REPORT_TITLE = "AI-stöd för klimatbudgeten"
+REPORT_WEB_URL = "https://gemini.google.com/share/e6409eaadff7"
+REPORT_PDF_PATH = Path("assets/generated/deep_research_rapport.pdf")
+
+
+# ---------------------------------------------------------------------------
+# Favorites helpers
+# ---------------------------------------------------------------------------
 def get_favorites() -> list[dict]:
     """Get the current list of favorites from session state."""
     if "favorites" not in st.session_state:
@@ -32,20 +54,27 @@ def remove_favorite(nr: str):
     st.session_state.favorites = [f for f in get_favorites() if f["nr"] != nr]
 
 
-# Linkroll — external resources shown at the bottom of the sidebar.
-# Add new entries here as {label, url, emoji} dicts.
-LINKS = [
-    {
-        "label": "Klimatbudget — Uppsala kommun",
-        "url": "https://www.uppsala.se/kommun-och-politik/kommunens-mal-och-budget/mal-och-budget/klimatbudget/",
-        "emoji": "🌍",
-    },
-]
-
-
+# ---------------------------------------------------------------------------
+# Sidebar rendering
+# ---------------------------------------------------------------------------
 def _render_sidebar_linkroll():
-    """Render a linkroll section at the bottom of the sidebar."""
+    """Render linkroll + report section at the bottom of the sidebar."""
     with st.sidebar:
+        # --- Report section ---
+        st.markdown("---")
+        st.markdown(f"### 📄 {REPORT_TITLE}")
+        st.markdown(f"🌐 [Läs på webben]({REPORT_WEB_URL})")
+        if REPORT_PDF_PATH.exists():
+            pdf_bytes = REPORT_PDF_PATH.read_bytes()
+            st.download_button(
+                label="⬇️ Ladda ner PDF",
+                data=pdf_bytes,
+                file_name="AI-stöd för Uppsalas Klimatbudget.pdf",
+                mime="application/pdf",
+                key="sidebar_report_pdf",
+            )
+
+        # --- Links section ---
         st.markdown("---")
         st.markdown("### 🔗 Länkar")
         for link in LINKS:
@@ -67,10 +96,12 @@ def render_sidebar_favorites():
                     st.caption(f"**{f['nr']}** — {f['text']}")
                 with col2:
                     if st.button(
-                        "✕", key=f"sidebar_unfav_{f['nr']}", help="Ta bort favorit"
+                        "✕",
+                        key=f"sidebar_unfav_{f['nr']}",
+                        help="Ta bort favorit",
                     ):
                         remove_favorite(f["nr"])
                         st.rerun()
 
-    # Linkroll (always shown)
+    # Linkroll + report (always shown)
     _render_sidebar_linkroll()
