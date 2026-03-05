@@ -210,6 +210,37 @@ def inject_custom_css():
             display: none !important;
         }}
 
+        /* Sidebar linkroll — match Streamlit nav item styling */
+        .sidebar-linkroll .linkroll-heading {{
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            color: {PALETTE["cream"]} !important;
+            opacity: 0.55;
+            margin-bottom: 0.25rem !important;
+            padding-left: 0.5rem;
+        }}
+        .sidebar-linkroll a {{
+            display: block !important;
+            padding: 0.375rem 0.5rem !important;
+            border-radius: 0.375rem !important;
+            font-size: 0.875rem !important;
+            font-weight: 400 !important;
+            color: {PALETTE["cream"]} !important;
+            text-decoration: none !important;
+            transition: background 0.15s, color 0.15s;
+        }}
+        .sidebar-linkroll a:hover {{
+            background: rgba(91, 45, 142, 0.35) !important;
+            color: {PALETTE["white"]} !important;
+        }}
+        .sidebar-linkroll a::after {{
+            content: " ↗";
+            font-size: 0.7em;
+            opacity: 0.5;
+        }}
+
         /* Horizontal rule */
         hr {{
             border-color: {PALETTE["violet"]} !important;

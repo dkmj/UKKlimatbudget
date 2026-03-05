@@ -9,17 +9,20 @@ MAX_FAVORITES = 10
 # ---------------------------------------------------------------------------
 # Linkroll — external resources shown at the bottom of the sidebar.
 # Add new entries here as {label, url, emoji} dicts.
+# All links open in a new tab.
 # ---------------------------------------------------------------------------
 LINKS = [
     {
         "label": "Klimatbudget — Uppsala kommun",
         "url": "https://www.uppsala.se/kommun-och-politik/kommunens-mal-och-budget/mal-och-budget/klimatbudget/",
-        "emoji": "🌍",
+    },
+    {
+        "label": "Deep Research — webbversion",
+        "url": "https://gemini.google.com/share/e6409eaadff7",
     },
 ]
 
-# Deep-research report (shown as its own mini-section with PDF download + web link).
-REPORT_TITLE = "AI-stöd för klimatbudgeten"
+# Deep-research report (kept as constants for the Rapport page).
 REPORT_WEB_URL = "https://gemini.google.com/share/e6409eaadff7"
 REPORT_PDF_PATH = Path("assets/generated/deep_research_rapport.pdf")
 
@@ -58,27 +61,24 @@ def remove_favorite(nr: str):
 # Sidebar rendering
 # ---------------------------------------------------------------------------
 def _render_sidebar_linkroll():
-    """Render linkroll + report section at the bottom of the sidebar."""
+    """Render linkroll styled to match the sidebar navigation items."""
     with st.sidebar:
-        # --- Report section ---
         st.markdown("---")
-        st.markdown(f"### 📄 {REPORT_TITLE}")
-        st.markdown(f"🌐 [Läs på webben]({REPORT_WEB_URL})")
-        if REPORT_PDF_PATH.exists():
-            pdf_bytes = REPORT_PDF_PATH.read_bytes()
-            st.download_button(
-                label="⬇️ Ladda ner PDF",
-                data=pdf_bytes,
-                file_name="AI-stöd för Uppsalas Klimatbudget.pdf",
-                mime="application/pdf",
-                key="sidebar_report_pdf",
-            )
-
-        # --- Links section ---
-        st.markdown("---")
-        st.markdown("### 🔗 Länkar")
-        for link in LINKS:
-            st.markdown(f"{link['emoji']} [{link['label']}]({link['url']})")
+        # Build link items that visually match the Streamlit nav entries
+        link_items = "".join(
+            f'<a href="{link["url"]}" target="_blank" rel="noopener">'
+            f"{link['label']}</a>"
+            for link in LINKS
+        )
+        st.markdown(
+            f"""
+            <div class="sidebar-linkroll">
+                <p class="linkroll-heading">Länkar</p>
+                {link_items}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
 def render_sidebar_favorites():
@@ -103,5 +103,5 @@ def render_sidebar_favorites():
                         remove_favorite(f["nr"])
                         st.rerun()
 
-    # Linkroll + report (always shown)
+    # Linkroll (always shown)
     _render_sidebar_linkroll()
