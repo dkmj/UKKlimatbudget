@@ -33,20 +33,45 @@ def remove_favorite(nr: str):
     st.session_state.favorites = [f for f in get_favorites() if f["nr"] != nr]
 
 
-def render_sidebar_favorites():
-    """Render the favorites list in the sidebar."""
-    favs = get_favorites()
-    if not favs:
-        return
+# Linkroll — external resources shown at the bottom of the sidebar.
+# Add new entries here as {label, url, emoji} dicts.
+LINKS = [
+    {
+        "label": "Klimatbudget — Uppsala kommun",
+        "url": "https://www.uppsala.se/kommun-och-politik/kommunens-mal-och-budget/mal-och-budget/klimatbudget/",
+        "emoji": "🌍",
+    },
+]
 
+
+def _render_sidebar_linkroll():
+    """Render a linkroll section at the bottom of the sidebar."""
     with st.sidebar:
         st.markdown("---")
-        st.markdown(f"### ⭐ Favoriter ({len(favs)}/{MAX_FAVORITES})")
-        for f in favs:
-            col1, col2 = st.columns([5, 1])
-            with col1:
-                st.caption(f"**{f['nr']}** — {f['text']}")
-            with col2:
-                if st.button("✕", key=f"sidebar_unfav_{f['nr']}", help="Ta bort favorit"):
-                    remove_favorite(f["nr"])
-                    st.rerun()
+        st.markdown("### 🔗 Länkar")
+        for link in LINKS:
+            st.markdown(
+                f"{link['emoji']} [{link['label']}]({link['url']})"
+            )
+
+
+def render_sidebar_favorites():
+    """Render favorites and linkroll in the sidebar."""
+    favs = get_favorites()
+
+    with st.sidebar:
+        # Favorites (only if any exist)
+        if favs:
+            st.markdown("---")
+            st.markdown(f"### ⭐ Favoriter ({len(favs)}/{MAX_FAVORITES})")
+            for f in favs:
+                col1, col2 = st.columns([5, 1])
+                with col1:
+                    st.caption(f"**{f['nr']}** — {f['text']}")
+                with col2:
+                    if st.button("✕", key=f"sidebar_unfav_{f['nr']}", help="Ta bort favorit"):
+                        remove_favorite(f["nr"])
+                        st.rerun()
+
+    # Linkroll (always shown)
+    _render_sidebar_linkroll()
