@@ -36,3 +36,4 @@ Thumbs.db
 !assets/generated/*.json
 !assets/generated/*.html
 !assets/generated/*.pdf
+!assets/generated/*.mp3
