@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "källa": "Mål och budget 2026 med plan för 2027–2028, sidorna 37–44",
+    "kommun": "Uppsala kommun",
+    "mål_klimatneutral": 2030,
+    "mål_klimatpositiv": 2050,
+    "årlig_minskning_procent": "18–22",
+    "utsläpp_2023_kton": 816,
+    "utsläpp_2022_kton": 807,
+    "utsläpp_kommunkoncern_2024_kton": 25.8,
+    "utsläpp_kommunkoncern_2023_kton": 26.3,
+    "andel_gang_cykel_kollektiv_2024_procent": 59,
+    "andel_gang_cykel_kollektiv_2023_procent": 56,
+    "andel_gang_cykel_kollektiv_mål_2026_procent": 76,
+    "andel_gang_cykel_kollektiv_mål_2028_procent": 77,
+    "materialåtervinning_2024_procent": 34,
+    "materialåtervinning_mål_2026_procent": 56,
+    "materialåtervinning_mål_2028_procent": 58,
+    "områdesskydd_2024_hektar_per_år": 0,
+    "områdesskydd_mål_hektar_per_år": 100
+  },
+  "områden": [
+    {
+      "id": "transport",
+      "namn": "Transport",
+      "beskrivning": "Transporter står för en betydande del av utsläppen inom Uppsalas kommungeografi. Utsläppen ska minska genom att minska behovet av transporter samt genom en övergång till fossilfria drivmedel.",
+      "nyckelstrategier": [
+        "Målstyrning mot ett mer aktivt resande och mer hållbara resmönster",
+        "Utveckling av ekonomiska styrmedel",
+        "Främjande av gång-, cykel- och kollektivtrafik",
+        "Elektrifiering och förnybara drivmedel"
+      ],
+      "åtgärder": [
+        {"nr": "1.01", "åtgärd": "Utveckla ett attraktivt kapacitetsstarkt kollektivtrafiksystem genom anläggning av spårväg mellan Uppsala C och Sydöstra stadsdelarna via Gottsunda respektive Ultuna.", "ansvariga": ["KS"]},
+        {"nr": "1.02", "åtgärd": "Utreda effekterna av och införa olika trafikreglerande styrmedel.", "ansvariga": ["GSN", "KS", "UPAB"]},
+        {"nr": "1.03", "åtgärd": "Genomföra omvärldsbevakning kring innovativa tekniska lösningar för trafikstyrning och förbered för implementering när det är aktuellt.", "ansvariga": ["GSN", "KS", "UPAB"]},
+        {"nr": "1.04", "åtgärd": "Utveckla kommunens styrning mot mer hållbara resmönster och minskad biltrafik.", "ansvariga": ["KS", "GSN"]},
+        {"nr": "1.05", "åtgärd": "Utveckla och fördjupa samverkan med arbetsgivare inom näringslivet, föreningslivet, universiteten och offentlig verksamhet för att uppnå större andel hållbara tjänste- och arbetsresor.", "ansvariga": ["GSN"]},
+        {"nr": "1.06", "åtgärd": "Utreda och ta fram en plan för hur kommunen ska främja samåkning och delade mobilitetstjänster.", "ansvariga": ["GSN", "KS", "UHEM", "UPAB"]},
+        {"nr": "1.07", "åtgärd": "Utveckla insatser för att främja anställdas hållbara resande i tjänsten samt till och från arbetet.", "ansvariga": ["Alla nämnder och bolag"]},
+        {"nr": "1.08", "åtgärd": "Utveckla samarbete kring förutsättningar för att cykla utanför kommunens väghållningsområde.", "ansvariga": ["GSN", "KS"]},
+        {"nr": "1.09", "åtgärd": "Anpassa gång- och cykelbanor och parkeringar till olika typer av cyklar.", "ansvariga": ["GSN", "PBN", "UKAF", "SFAB", "UHEM", "UPAB"]},
+        {"nr": "1.10", "åtgärd": "Utveckla och bibehåll ett prioriterat och trafiksäkert cykelvägnät, i såväl stad som på landsbygd.", "ansvariga": ["GSN"]},
+        {"nr": "1.11", "åtgärd": "Samverka med Region Uppsala för att ta fram en samlad lösning för ökad framkomlighet längs de gator som är viktiga för kollektivtrafiken.", "ansvariga": ["GSN"]},
+        {"nr": "1.12", "åtgärd": "Samverka med Region Uppsala för att förenkla resande med kollektivtrafik och byten mellan olika transportmedel.", "ansvariga": ["GSN"]},
+        {"nr": "1.13", "åtgärd": "Fortsätta bygga ut infrastruktur för el-laddning och andra hållbara drivmedel.", "ansvariga": ["KS", "UPAB", "UVA", "UHEM", "UKAF", "SFAB"]},
+        {"nr": "1.14", "åtgärd": "Skapa förutsättningar och utrymme för infrastruktur till el-laddning och andra hållbara drivmedel i den byggda miljön.", "ansvariga": ["KS", "GSN", "PBN", "UPAB", "UVA", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "1.15", "åtgärd": "Främja övergången till elmobilitet genom att verka för utbyggd laddinfrastruktur genom markanvisningar och arrenden.", "ansvariga": ["KS"]},
+        {"nr": "1.16", "åtgärd": "Främja övergången till elmobilitet genom att verka för en helt elektrisk taxiflotta, till exempel genom regleringar och dedikerade laddplatser för taxibilar.", "ansvariga": ["GSN", "KS"]},
+        {"nr": "1.17", "åtgärd": "Verka för utbyggnad av infrastruktur för laddning och förnybara drivmedel hos bostadsrättsföreningar, privata fastighetsägare och företag.", "ansvariga": ["KS", "GSN", "PBN"]},
+        {"nr": "1.18", "åtgärd": "Utveckla testbäddar, piloter och innovativa arbetssätt som möjliggör snabb elektrifiering av transporter.", "ansvariga": ["KS", "GSN"]},
+        {"nr": "1.19", "åtgärd": "Utvärdera och utveckla kommunens styrning av parkeringstal baserat på erfarenheter från bland annat Rosendal.", "ansvariga": ["PBN", "KS", "GSN", "UPAB"]},
+        {"nr": "1.20", "åtgärd": "Utveckla kommunens uppföljning av klimatpåverkan från trafik och effekterna av trafikrelaterade klimatåtgärder.", "ansvariga": ["KS", "GSN"]},
+        {"nr": "1.21", "åtgärd": "Säkerställa att kommunens egna och upphandlade arbetsmaskiner drivs med förnybara drivmedel (med prioritering för el, vätgas och biogas) och övergå till användning av eldrivna handhållna arbetsmaskiner i upphandlad och egen regi.", "ansvariga": ["GSN", "KS", "UHEM", "UKAF", "UVA", "SFAB"]},
+        {"nr": "1.22", "åtgärd": "Minska energianvändningen och fasa ut fossila bränslen för transporter inom vård och omsorg.", "ansvariga": ["ÄLN", "OSN"]},
+        {"nr": "1.23", "åtgärd": "Verka för ökad efterlevnad av hastighetsbegränsningar på utvalda vägar.", "ansvariga": ["GSN"]}
+      ]
+    },
+    {
+      "id": "energi",
+      "namn": "Energi",
+      "beskrivning": "Energisystemet är en grundpelare i samhällets funktion. Avgörande för att minska utsläppen från energiområdet är minskad energianvändning, ökad andel förnybar energi och minskad förbränning av fossil plast i fjärrvärmeproduktion.",
+      "nyckelstrategier": [
+        "Minskad energianvändning genom energieffektivisering",
+        "Ökad andel förnybar energi",
+        "Minskad förbränning av fossil plast i fjärrvärmeproduktion"
+      ],
+      "åtgärder": [
+        {"nr": "2.01", "åtgärd": "Arbeta för att minska effekttoppar mot elnätet genom att öka effektflexibiliteten i kommunens egna verksamheter.", "ansvariga": ["KS", "GSN", "UHEM", "SFAB", "UVA", "UKAF", "UPAB"]},
+        {"nr": "2.02", "åtgärd": "Verka för förstärkt elnät i Uppsala där utbyggnadsbehov finns och samordna planering mellan elnätsbolag och kommun.", "ansvariga": ["KS", "GSN", "PBN"]},
+        {"nr": "2.03", "åtgärd": "Minska mängden spillvärme och -kyla och öka återanvändningen, antingen inom kommunens verksamheter eller i samverkan med andra aktörer.", "ansvariga": ["KS", "GSN", "UHEM", "UKAF", "UVA", "SFAB"]},
+        {"nr": "2.04", "åtgärd": "Minska mängden fossil plast som går till energiåtervinning (förbränning) genom att: arbeta förebyggande för att minska plastanvändningen, ställa krav på återvunnen, biobaserad och återvinningsbar plast vid inköp, säkerställa utvecklad och korrekt sortering i den egna verksamheten.", "ansvariga": ["Alla nämnder och bolag"]},
+        {"nr": "2.05", "åtgärd": "Arbeta för att minska energianvändningen i fastigheter och verksamheter genom förändringar i teknik och beteende. Säkerställ att berörd personal har kunskap om energibesparingsåtgärder i sin verksamhet genom att ta fram relevanta energisparutbildningar.", "ansvariga": ["Alla nämnder och bolag"]},
+        {"nr": "2.06", "åtgärd": "Utreda hur hyresavtal kan ge incitament till energieffektiviseringar för kommunkoncernens fastighetsägare och hyresgäster.", "ansvariga": ["KS", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "2.07", "åtgärd": "Minimera energianvändning för kyla genom att, vid behov av kylning i en byggnad, i första hand använda solavskärmningar, passiv kylning och skuggande grönska, i andra hand med fjärrkyla om det finns i närheten, därefter med andra lösningar.", "ansvariga": ["KS", "SFAB", "UHEM", "UKAF", "UVA"]},
+        {"nr": "2.08", "åtgärd": "Minska användningen av vatten och särskilt tappvarmvatten i kommunens fastigheter och verksamheter.", "ansvariga": ["Alla nämnder och bolag"]},
+        {"nr": "2.09", "åtgärd": "Kartlägga användning av fossil energi för uppvärmning i företagsverksamheter som är föremål för tillsyn enligt miljöbalken, och för dialog om alternativa uppvärmningsmöjligheter.", "ansvariga": ["MHN"]},
+        {"nr": "2.10", "åtgärd": "Ge förutsättningar för att förebygga ökad energianvändning för kylning genom att stötta val av i första hand solavskärmningar, passiv kylning och skuggande grönska, i andra hand med fjärrkyla om det finns i närheten, därefter med andra lösningar.", "ansvariga": ["PBN", "KS"]},
+        {"nr": "2.11", "åtgärd": "Minska varmfackling av biogas.", "ansvariga": ["UVA"]},
+        {"nr": "2.12", "åtgärd": "Minska utsläpp av lustgas från spillvatten.", "ansvariga": ["UVA"]},
+        {"nr": "2.13", "åtgärd": "Utreda förutsättningar för produktion av flytande koldioxid från gasrening på biogasanläggningen, för att kunna återanvända eller lagra koldioxiden (bio-CCU/bio-CCS).", "ansvariga": ["UVA"]},
+        {"nr": "2.14", "åtgärd": "Utveckla kravställning på energianvändning och energieffektivitet i datalagring och serverhallar för kommunens verksamheter.", "ansvariga": ["KS"]},
+        {"nr": "2.15", "åtgärd": "Utveckla ny och effektiv klimattillsyn inom miljöbalkens tillämpningsområde i syfte att främja klimatomställningen.", "ansvariga": ["MHN"]},
+        {"nr": "2.16", "åtgärd": "Installera solenergianläggningar på kommunägda fastigheter och mark där det är möjligt.", "ansvariga": ["KS", "SFAB", "UHEM", "UKAF", "UVA", "UPAB"]},
+        {"nr": "2.17", "åtgärd": "Minska metanutsläpp från slamlagring.", "ansvariga": ["UVA"]},
+        {"nr": "2.18", "åtgärd": "Verka för att värmeverket i Uppsala inför teknik för infångning och lagring av koldioxid eller användning av koldioxid som råvara (CCS/CCU).", "ansvariga": ["KS"]},
+        {"nr": "2.19", "åtgärd": "Utveckla åtgärder och styrmedel för minskad vattenförbrukning i kommunen som helhet.", "ansvariga": ["UVA", "KS"]},
+        {"nr": "2.20", "åtgärd": "Ta fram siffersatta mål för energieffektivisering, kommungemensamt samt bolagsspecifikt.", "ansvariga": ["KS", "UKAF", "SFAB", "UHEM", "UVA"]}
+      ]
+    },
+    {
+      "id": "bygg_och_anlaggning",
+      "namn": "Bygg och anläggning",
+      "beskrivning": "Uppsala är en av Sveriges snabbast växande kommuner. Stora utsläpp uppstår inom ramen för renoveringar samt ny-, om- och tillbyggnation. Klimatperspektivet ska integreras i hela plan- och exploateringsprocessen.",
+      "nyckelstrategier": [
+        "Klimatsmarta material och resurseffektivitet",
+        "Klimatsmart stadsutveckling"
+      ],
+      "åtgärder": [
+        {"nr": "3.01", "åtgärd": "Utveckla och implementera arbetssätt för hållbar masshantering med målet att minska uppkomna massvolymer och transporter av massor.", "ansvariga": ["GSN", "KS", "UHEM", "UKAF", "SFAB", "UVA"]},
+        {"nr": "3.02", "åtgärd": "Vidareutveckla arbetssätt kring klimatanalyser inom översiktsplaneringen för att visa hur olika planeringsinriktningar kan bidra till minskad klimatpåverkan.", "ansvariga": ["KS", "PBN"]},
+        {"nr": "3.03", "åtgärd": "Vidareutveckla arbetssätt kring klimatanalyser för detaljplaner på privatägd mark för att visa hur olika ställningstaganden kan bidra till minskad klimatpåverkan.", "ansvariga": ["PBN", "KS"]},
+        {"nr": "3.04", "åtgärd": "Vidareutveckla arbetssätt kring klimatanalyser vid exploatering av kommunägd mark för att visa hur olika ställningstaganden kan bidra till minskad klimatpåverkan och användas som underlag för beslut i ett projekts olika faser.", "ansvariga": ["KS", "GSN", "PBN"]},
+        {"nr": "3.05", "åtgärd": "Utveckla kommunens områdesplanering för att åtgärda faktorer som leder till ökad klimatpåverkan i befintliga områden och tätorter, särskilt bristande service eller otillräcklig tillgång till kollektivtrafik.", "ansvariga": ["KS", "PBN"]},
+        {"nr": "3.06", "åtgärd": "Utveckla och implementera arbetssätt för att anpassa befintliga byggnader framför att riva och bygga nytt, i syfte att uppnå en mer resurseffektiv användning av den byggda miljön.", "ansvariga": ["PBN", "KS", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "3.07", "åtgärd": "Minska behovet av nybyggnation genom att verka för bättre nyttjande av befintligt bostads- och fastighetsbestånd.", "ansvariga": ["KS", "UHEM"]},
+        {"nr": "3.08", "åtgärd": "Utveckla och implementera modeller för balansering av portföljen för samhällsbyggnadsprojekt så att projekt som bidrar till snabbare klimatomställning i befintliga områden prioriteras.", "ansvariga": ["KS", "GSN", "UHEM", "UPAB"]},
+        {"nr": "3.09", "åtgärd": "Införa livscykelanalyser som utgångspunkt för beslut inom bygg- och anläggningsprojekt, med hänsyn till klimatutsläpp, energianvändning och kostnadseffektivitet i både bygg- och användningsfas.", "ansvariga": ["GSN", "KS", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "3.10", "åtgärd": "Implementera arbetssätt för renovering och underhåll av kommunens fastigheter och anläggningar som bidrar till att förlänga livslängd och undvika förtida utbyten av material.", "ansvariga": ["KS", "GSN", "SFAB", "UHEM", "UKAF", "UVA"]},
+        {"nr": "3.11", "åtgärd": "Ställa krav på inventering av byggprodukter som kan återanvändas samt återanvändning vid upphandling av rivningsentreprenader.", "ansvariga": ["KS", "GSN", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "3.12", "åtgärd": "Utveckla arbetet för att minska mängden byggavfall genom systematisk uppföljning och krav på minskade avfallsmängder i upphandlingar.", "ansvariga": ["KS", "GSN", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "3.13", "åtgärd": "Prioritera och ställ krav på bevarande och återbruk av material samt minimering av spillmaterial i projektering och upphandling av byggnation, ombyggnation och anläggning.", "ansvariga": ["KS", "GSN", "SFAB", "UHEM", "UKAF"]},
+        {"nr": "3.14", "åtgärd": "Stötta föreningars miljö- och klimatarbete på föreningsägda anläggningar.", "ansvariga": ["IFN", "KTN", "KS"]}
+      ]
+    },
+    {
+      "id": "jord_och_skogsbruk",
+      "namn": "Jord- och skogsbruk",
+      "beskrivning": "Uppsala har Sveriges tredje största åkermarksareal och Sveriges största landsbygdsbefolkning. Jordbruks- och skogsmark erbjuder stor potential för kolinlagring och negativa utsläpp av koldioxid.",
+      "nyckelstrategier": [
+        "Kartlägga klimatpåverkan från jord- och skogsbruk",
+        "Ökad kolinlagring i skog och mark",
+        "Naturbaserade lösningar"
+      ],
+      "åtgärder": [
+        {"nr": "4.01", "åtgärd": "Tillsammans med relevanta aktörer kartlägga hur kommunen inom sin rådighet kan arbeta för att minska klimatpåverkan från den lokala jord- och skogsbrukssektorn, inklusive livsmedelsförsörjning.", "ansvariga": ["KS"]},
+        {"nr": "4.02", "åtgärd": "Undersöka möjligheten att ändra skrivelser i Uppsala kommuns arrendeavtal för att främja biologisk mångfald, öka kolinlagring och minska utsläpp av växthusgaser.", "ansvariga": ["KS"]},
+        {"nr": "4.03", "åtgärd": "Verka för användning av naturbaserade lösningar som bidrar till ökad biologisk mångfald och kolinlagring.", "ansvariga": ["KS", "PBN", "GSN"]}
+      ]
+    },
+    {
+      "id": "konsumtion",
+      "namn": "Konsumtion",
+      "beskrivning": "Varor och tjänster som konsumeras i Uppsala orsakar betydande utsläpp, både lokalt och i andra delar av världen. Uppsala kommun köper in varor och tjänster för cirka 5–6 miljarder kronor per år.",
+      "nyckelstrategier": [
+        "Ökad livslängd och ökat återbruk",
+        "Förenkla hållbara val vid inköp och upphandling"
+      ],
+      "åtgärder": [
+        {"nr": "5.01", "åtgärd": "Utveckla och skärp kommunens arbete med att ställa krav på minskad klimatpåverkan från livsmedel och måltider i upphandlingar av externa leverantörer.", "ansvariga": ["KS", "DUAB", "GSN", "IFN", "KTN", "UKAF", "UKK", "UST", "OSN", "ÄLN"]},
+        {"nr": "5.02", "åtgärd": "Utveckla kravställningar som bidrar till ökad livslängd, reparationer och återbruk av upphandlade varor, ökat återbruk av förpackningar, samt minskad mängd plastförpackningar.", "ansvariga": ["KS"]},
+        {"nr": "5.03", "åtgärd": "Utveckla upphandlingskrav för redovisning av klimatdata från leverantörer.", "ansvariga": ["KS"]},
+        {"nr": "5.04", "åtgärd": "Utveckla och implementera arbetssätt för att öka det interna återbruket inom kommunens verksamheter.", "ansvariga": ["Alla nämnder och bolag"]},
+        {"nr": "5.05", "åtgärd": "Utveckla kommunens inköpssystem för att ge kommunens verksamheter ett tydligare stöd att välja varor och tjänster med lägre klimatpåverkan.", "ansvariga": ["KS"]},
+        {"nr": "5.06", "åtgärd": "Vidareutveckla stödet till föreningsverksamhet som bidrar till reparationer och återbruk.", "ansvariga": ["IFN", "KTN", "KS"]},
+        {"nr": "5.07", "åtgärd": "Integrera klimatperspektivet i produktionsstrategier för grundläggande IT-infrastruktur och programvaruanskaffning och/eller utveckling.", "ansvariga": ["KS"]}
+      ]
+    },
+    {
+      "id": "ovriga_omraden",
+      "namn": "Övriga områden",
+      "beskrivning": "Utöver de fem stora utsläppsområdena behöver åtgärder som påverkar klimatomställningen mer övergripande genomföras. Kraftfull och målinriktad styrning av den egna verksamheten är avgörande.",
+      "nyckelstrategier": [
+        "Övergripande styrning i klimatfrågor",
+        "Mobilisering av externa aktörer",
+        "Kommunikation och kunskapsspridning"
+      ],
+      "åtgärder": [
+        {"nr": "6.01", "åtgärd": "Utveckla kommunens övergripande styrning i klimatfrågor för att säkerställa en ändamålsenlig hantering och undvika dubbelstyrning.", "ansvariga": ["KS"]},
+        {"nr": "6.02", "åtgärd": "Utveckla det systematiska arbetet för att minska klimatpåverkan från arrangemang och evenemang inom exempelvis idrott, kultur, besöksnäring och näringsliv.", "ansvariga": ["DUAB", "IFN", "KTN", "UKAF", "UKK", "UST"]},
+        {"nr": "6.03", "åtgärd": "Undersöka på vilka sätt klimatomställningen påverkar kompetensförsörjningsbehovet i kommunen samt utveckla arbetssätt för att matcha kompetensförsörjning mot näringslivets roll i klimatomställningen.", "ansvariga": ["KS", "AMN"]},
+        {"nr": "6.04", "åtgärd": "Etablera och utveckla Klimathubben som en plats för kommunikation om klimatförändringar och klimatomställning.", "ansvariga": ["KTN"]},
+        {"nr": "6.05", "åtgärd": "Stärka invånarnas möjligheter att engagera sig för klimatomställningen, genom kommunikation, kunskapsspridning och dialog.", "ansvariga": ["Alla nämnder och bolag"]}
+      ]
+    }
+  ]
+}

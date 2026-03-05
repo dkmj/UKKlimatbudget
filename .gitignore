@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+
+# uv
+uv.lock
+
+# Environment
+.env
+.env.local
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Feedback data
+feedback/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files tracked separately
+*.wav
+*.mp3
+*.mp4
+
+# But keep generated content markers
+!assets/generated/.gitkeep
