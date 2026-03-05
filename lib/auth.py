@@ -27,7 +27,10 @@ def check_password() -> bool:
     if st.session_state.get("authenticated"):
         return True
 
-    password = st.secrets.get("app_password", "klimatbudget2026")
+    try:
+        password = st.secrets["app_password"]
+    except Exception:
+        password = "klimatbudget2026"
 
     st.markdown("## 🔐 Logga in")
     st.markdown("Ange lösenord för att komma åt appen.")
