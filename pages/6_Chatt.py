@@ -7,16 +7,23 @@ import streamlit as st
 from lib.auth import check_password
 from lib.favorites import render_sidebar_favorites
 from lib.feedback import thumbs_feedback
+from lib.nav import render_nav_bar
 from lib.rate_limit import check_rate_limit, increment_request
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Chatt — Klimatbudget", page_icon="💬", layout="centered")
+st.set_page_config(
+    page_title="Chatt — Klimatbudget",
+    page_icon="💬",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
 render_sidebar_favorites()
+render_nav_bar("chatt")
 
 st.title("💬 Chatt: Klimatbudgeten")
 

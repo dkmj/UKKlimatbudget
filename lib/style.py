@@ -205,9 +205,109 @@ def inject_custom_css():
             color: {PALETTE["white"]} !important;
         }}
 
-        /* Hide the default "app" page label in sidebar navigation */
-        [data-testid="stSidebarNav"] li:first-child {{
+        /* Hide sidebar navigation entirely (replaced by nav-bar) */
+        [data-testid="stSidebarNav"] {{
             display: none !important;
+        }}
+
+        /* --- Hub cards (glassmorphic) --- */
+        .hub-card {{
+            background: rgba(45, 27, 78, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(91, 45, 142, 0.4);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.25s, border-color 0.25s;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }}
+        .hub-card:hover {{
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35),
+                        0 0 20px var(--accent-color, rgba(123, 45, 142, 0.3));
+            border-color: var(--accent-color, {PALETTE["magenta"]});
+        }}
+        .hub-card .hub-icon {{
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }}
+        .hub-card .hub-title {{
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            color: {PALETTE["white"]} !important;
+            margin: 0.25rem 0 !important;
+        }}
+        .hub-card .hub-desc {{
+            font-size: 0.8rem !important;
+            color: {PALETTE["cream"]} !important;
+            opacity: 0.85;
+            margin: 0 !important;
+        }}
+
+        /* --- Nav bar (compact icon row on sub-pages) --- */
+        .nav-item {{
+            text-align: center;
+            padding: 0.4rem 0.25rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: {PALETTE["cream"]};
+            line-height: 1.3;
+        }}
+        .nav-item.active {{
+            background: rgba(91, 45, 142, 0.4);
+            border: 1px solid {PALETTE["magenta"]};
+            box-shadow: 0 0 10px rgba(123, 45, 142, 0.3);
+        }}
+        .nav-item .nav-label {{
+            font-size: 0.65rem;
+            opacity: 0.9;
+        }}
+
+        /* --- Format bar (multi-format signal) --- */
+        .format-bar {{
+            display: inline-flex;
+            gap: 0.75rem;
+            background: rgba(45, 27, 78, 0.5);
+            border: 1px solid rgba(91, 45, 142, 0.3);
+            border-radius: 20px;
+            padding: 0.35rem 1rem;
+            font-size: 0.8rem;
+            color: {PALETTE["cream"]};
+            margin-bottom: 1rem;
+        }}
+        .format-bar span {{
+            opacity: 0.85;
+        }}
+
+        /* --- Hub hero --- */
+        .hub-hero {{
+            text-align: center;
+            padding: 1rem 0 0.5rem;
+        }}
+        .hub-hero h1 {{
+            font-size: 2.2rem !important;
+            margin-bottom: 0.25rem !important;
+        }}
+        .hub-tagline {{
+            font-size: 1.1rem !important;
+            color: {PALETTE["gold"]} !important;
+            opacity: 0.9;
+            margin-bottom: 1rem !important;
+        }}
+
+        /* Responsive — mobile cards */
+        @media (max-width: 768px) {{
+            .hub-card {{
+                padding: 0.75rem;
+                min-height: 120px;
+            }}
+            .hub-card .hub-icon {{
+                font-size: 1.5rem;
+            }}
         }}
 
         /* Sidebar linkroll — match Streamlit nav item styling */

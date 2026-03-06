@@ -7,17 +7,35 @@ import streamlit.components.v1 as components
 
 from lib.auth import check_password
 from lib.favorites import REPORT_PDF_PATH, REPORT_WEB_URL, render_sidebar_favorites
+from lib.nav import render_nav_bar
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Rapport — Klimatbudget", page_icon="📄", layout="wide")
+st.set_page_config(
+    page_title="Rapport — Klimatbudget",
+    page_icon="📄",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
 render_sidebar_favorites()
+render_nav_bar("rapport")
 
 st.title("📄 AI-stöd för Uppsalas klimatbudget")
+
+# Format signal
+st.markdown(
+    '<div class="format-bar">'
+    "<span>Tillgänglig som:</span> "
+    "<span>📄 Inline PDF</span> · "
+    "<span>⬇️ Nedladdning</span> · "
+    "<span>🌐 Webb</span>"
+    "</div>",
+    unsafe_allow_html=True,
+)
 st.markdown(
     "Strategisk optimering och AI-drivet beslutsstöd — "
     "en djupanalys genererad med Gemini Deep Research."
