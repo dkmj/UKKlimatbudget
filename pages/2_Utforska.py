@@ -11,18 +11,18 @@ from lib.favorites import (
     add_favorite,
     is_favorite,
     remove_favorite,
-    render_sidebar_favorites,
 )
 from lib.feedback import thumbs_feedback
+from lib.nav import render_top_nav
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Utforska — Klimatbudget", page_icon="🔍", layout="wide")
+st.set_page_config(page_title="Utforska — Klimatbudget", page_icon="🔍", layout="wide", initial_sidebar_state="collapsed")
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
-render_sidebar_favorites()
+render_top_nav("utforska")
 
 with open("data/klimatbudget.json", encoding="utf-8") as f:
     data = json.load(f)

@@ -9,19 +9,19 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from lib.auth import check_password
-from lib.favorites import render_sidebar_favorites
 from lib.feedback import thumbs_feedback
+from lib.nav import render_top_nav
 from lib.style import inject_custom_css
 
 st.set_page_config(
-    page_title="Presentation — Klimatbudget", page_icon="📑", layout="wide"
+    page_title="Presentation — Klimatbudget", page_icon="📑", layout="wide", initial_sidebar_state="collapsed"
 )
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
-render_sidebar_favorites()
+render_top_nav("presentation")
 
 st.title("📑 Presentation: Klimatbudgeten")
 st.markdown("AI-genererad presentation och begreppsträd för möten och workshops.")

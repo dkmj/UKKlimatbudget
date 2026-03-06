@@ -210,41 +210,185 @@ def inject_custom_css():
             display: none !important;
         }}
 
-        /* Sidebar linkroll — match Streamlit nav item styling */
-        .sidebar-linkroll .linkroll-heading {{
-            font-size: 0.75rem !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-            color: {PALETTE["cream"]} !important;
-            opacity: 0.55;
-            margin-bottom: 0.25rem !important;
-            padding-left: 0.5rem;
+        /* ===== Bageriet Redesign Styles ===== */
+        
+        /* completely hide the sidebar and its toggle button */
+        [data-testid="stSidebar"] {{
+            display: none !important;
         }}
-        .sidebar-linkroll a {{
-            display: block !important;
-            padding: 0.375rem 0.5rem !important;
-            border-radius: 0.375rem !important;
-            font-size: 0.875rem !important;
-            font-weight: 400 !important;
+        [data-testid="collapsedControl"] {{
+            display: none !important;
+        }}
+        
+        /* Top Navigation Container */
+        .top-nav-container {{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(45, 27, 78, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(123, 45, 142, 0.3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            gap: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }}
+        
+        /* Individual Nav Items */
+        .nav-item {{
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            color: #E8E0D8 !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }}
+        
+        .nav-icon {{
+            font-size: 1.5rem;
+        }}
+        
+        .nav-label {{
+            font-size: 0.85rem;
+            font-weight: 500;
+        }}
+        
+        .nav-item a {{
+            text-decoration: none !important;
+            color: #E8E0D8 !important;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }}
+        
+        /* Show text label under icon using pseudo-element */
+        .nav-item a::after {{
+            content: attr(title);
+            font-size: 0.85rem;
+            margin-top: 4px;
+            font-weight: normal;
+        }}
+        
+        .nav-item:hover {{
+            background: rgba(123, 45, 142, 0.5);
+            transform: translateY(-2px);
+        }}
+        
+        .active-nav-item {{
+            background: rgba(217, 79, 122, 0.4);
+            box-shadow: 0 0 10px rgba(217, 79, 122, 0.6);
+            border: 1px solid #D94F7A;
+        }}
+        
+        /* Glass Cards (for the hub) */
+        .glass-card {{
+            background: rgba(45, 27, 78, 0.5) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(123, 45, 142, 0.4) !important;
+            border-radius: 16px !important;
+            padding: 24px !important;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none !important;
+            color: #F0EDE8 !important;
+        }}
+        
+        .glass-card:hover {{
+            background: rgba(91, 45, 142, 0.7) !important;
+            border-color: {PALETTE["pink"]} !important;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(217, 79, 122, 0.4);
+        }}
+        
+        .glass-card h3 {{
+            margin-top: 12px !important;
+            margin-bottom: 4px !important;
+            font-size: 1.2rem !important;
+        }}
+        
+        .glass-card p {{
+            font-size: 0.9rem !important;
+            opacity: 0.8;
+            margin-bottom: 0 !important;
+        }}
+        
+        .glass-card .icon {{
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }}
+        
+        /* Hub Hero Section */
+        .hub-hero {{
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }}
+        
+        .hub-hero h1 {{
+            font-size: 2.5rem !important;
+            margin-bottom: 10px !important;
+            background: linear-gradient(90deg, {PALETTE["white"]}, {PALETTE["gold"]});
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }}
+        
+        .hub-hero p {{
+            font-size: 1.2rem !important;
+            color: {PALETTE["cream"]} !important;
+            max-width: 600px;
+            margin: 0 auto !important;
+        }}
+        
+        /* Adjust main padding since sidebar is gone */
+        [data-testid="stMainBlockContainer"] {{
+            padding-top: 2rem !important;
+            max-width: 1000px !important;
+        }}
+        
+        /* Footer linkroll */
+        .footer-linkroll {{
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(123, 45, 142, 0.3);
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }}
+        
+        .footer-linkroll a {{
             color: {PALETTE["cream"]} !important;
             text-decoration: none !important;
-            transition: background 0.15s, color 0.15s;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: all 0.2s ease;
         }}
-        .sidebar-linkroll a:hover {{
-            background: rgba(91, 45, 142, 0.35) !important;
-            color: {PALETTE["white"]} !important;
+        
+        .footer-linkroll a:hover {{
+            opacity: 1;
+            color: {PALETTE["pink"]} !important;
         }}
-        .sidebar-linkroll a::after {{
-            content: " ↗";
-            font-size: 0.7em;
-            opacity: 0.5;
-        }}
-
-        /* Horizontal rule */
-        hr {{
-            border-color: {PALETTE["violet"]} !important;
-            opacity: 0.5;
+        
+        /* Format tabs (Podcast/Rapport) */
+        .format-tabs {{
+            margin-bottom: 20px;
         }}
         </style>
 

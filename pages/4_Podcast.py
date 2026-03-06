@@ -7,19 +7,19 @@ from pathlib import Path
 import streamlit as st
 
 from lib.auth import check_password
-from lib.favorites import render_sidebar_favorites
 from lib.feedback import thumbs_feedback
+from lib.nav import render_top_nav
 from lib.style import inject_custom_css
 
 st.set_page_config(
-    page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered"
+    page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered", initial_sidebar_state="collapsed"
 )
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
-render_sidebar_favorites()
+render_top_nav("podcast")
 
 st.title("🎙️ Podcast: Klimatbudgeten")
 st.markdown(
@@ -27,58 +27,76 @@ st.markdown(
     "Perfekt att lyssna på inför möten eller som introduktion för nya medarbetare."
 )
 
-# --- Podcast catalog ---
-# Each podcast entry: {name, description, file, created}
-catalog_file = Path("assets/generated/podcast_catalog.json")
+# --- Dual format tabs ---
+st.markdown('<div class="format-tabs">', unsafe_allow_html=True)
+tab_lyssna, tab_las = st.tabs(["🎧 Lyssna", "📖 Läs transkript"])
+st.markdown('</div>', unsafe_allow_html=True)
 
-# Initialize catalog from existing files if no catalog exists
-if catalog_file.exists():
-    with open(catalog_file, encoding="utf-8") as f:
-        catalog = json.load(f)
-else:
-    catalog = []
+with tab_lyssna:
+    # --- Podcast catalog ---
+    # Each podcast entry: {name, description, file, created}
+    catalog_file = Path("assets/generated/podcast_catalog.json")
 
-# Auto-discover audio files not in catalog
-audio_dir = Path("assets/generated")
-existing_files = {p["file"] for p in catalog}
-for audio_file in sorted(
-    list(audio_dir.glob("podcast*.wav")) + list(audio_dir.glob("podcast*.mp3"))
-):
-    if audio_file.name not in existing_files:
-        stat = audio_file.stat()
-        catalog.append(
-            {
-                "name": "Klimatbudgeten — djupdykning",
-                "description": "En AI-genererad genomgång av Uppsala kommuns klimatbudget.",
-                "file": audio_file.name,
-                "created": datetime.fromtimestamp(stat.st_mtime, tz=UTC).strftime(
-                    "%Y-%m-%d"
-                ),
-            }
+    # Initialize catalog from existing files if no catalog exists
+    if catalog_file.exists():
+        with open(catalog_file, encoding="utf-8") as f:
+            catalog = json.load(f)
+    else:
+        catalog = []
+
+    # Auto-discover audio files not in catalog
+    audio_dir = Path("assets/generated")
+    existing_files = {p["file"] for p in catalog}
+    for audio_file in sorted(
+        list(audio_dir.glob("podcast*.wav")) + list(audio_dir.glob("podcast*.mp3"))
+    ):
+        if audio_file.name not in existing_files:
+            stat = audio_file.stat()
+            catalog.append(
+                {
+                    "name": "Klimatbudgeten — djupdykning",
+                    "description": "En AI-genererad genomgång av Uppsala kommuns klimatbudget.",
+                    "file": audio_file.name,
+                    "created": datetime.fromtimestamp(stat.st_mtime, tz=UTC).strftime(
+                        "%Y-%m-%d"
+                    ),
+                }
+            )
+
+    # Display podcasts
+    if catalog:
+        for i, pod in enumerate(catalog):
+            audio_path = audio_dir / pod["file"]
+            if not audio_path.exists():
+                continue
+
+            st.markdown("---")
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.subheader(f"🎧 {pod['name']}")
+                if pod.get("description"):
+                    st.markdown(pod["description"])
+            with col2:
+                st.caption(f"📅 {pod['created']}")
+                size_mb = audio_path.stat().st_size / (1024 * 1024)
+                st.caption(f"📦 {size_mb:.1f} MB")
+
+            st.audio(str(audio_path))
+            thumbs_feedback("podcast", pod["name"], key_suffix=f"pod_{i}")
+    else:
+        st.info("Inga podcastavsnitt har genererats ännu.")
+
+with tab_las:
+    st.markdown("### Transkription av debatten")
+    transcript_file = Path("assets/generated/transcript.md")
+    if transcript_file.exists():
+        with open(transcript_file, encoding="utf-8") as f:
+            st.markdown(f.read())
+    else:
+        st.info(
+            "Transkription saknas för tillfället. Den beräknas läggas till i nästa "
+            "uppdatering av AI-innehållet."
         )
-
-# Display podcasts
-if catalog:
-    for i, pod in enumerate(catalog):
-        audio_path = audio_dir / pod["file"]
-        if not audio_path.exists():
-            continue
-
-        st.markdown("---")
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.subheader(f"🎧 {pod['name']}")
-            if pod.get("description"):
-                st.markdown(pod["description"])
-        with col2:
-            st.caption(f"📅 {pod['created']}")
-            size_mb = audio_path.stat().st_size / (1024 * 1024)
-            st.caption(f"📦 {size_mb:.1f} MB")
-
-        st.audio(str(audio_path))
-        thumbs_feedback("podcast", pod["name"], key_suffix=f"pod_{i}")
-else:
-    st.info("Inga podcastavsnitt har genererats ännu.")
 
 # --- Request new podcast ---
 st.markdown("---")

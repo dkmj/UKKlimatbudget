@@ -6,16 +6,17 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from lib.auth import check_password
-from lib.favorites import REPORT_PDF_PATH, REPORT_WEB_URL, render_sidebar_favorites
+from lib.favorites import REPORT_PDF_PATH, REPORT_WEB_URL
+from lib.nav import render_top_nav
 from lib.style import inject_custom_css
 
-st.set_page_config(page_title="Rapport — Klimatbudget", page_icon="📄", layout="wide")
+st.set_page_config(page_title="Rapport — Klimatbudget", page_icon="📄", layout="wide", initial_sidebar_state="collapsed")
 
 if not check_password():
     st.stop()
 
 inject_custom_css()
-render_sidebar_favorites()
+render_top_nav("rapport")
 
 st.title("📄 AI-stöd för Uppsalas klimatbudget")
 st.markdown(
@@ -23,10 +24,16 @@ st.markdown(
     "en djupanalys genererad med Gemini Deep Research."
 )
 
-col1, col2 = st.columns(2)
-with col1:
-    st.link_button("🌐 Läs på webben (Gemini)", REPORT_WEB_URL)
-with col2:
+st.markdown('<div class="format-tabs">', unsafe_allow_html=True)
+tab_pdf, tab_webb = st.tabs(["📄 PDF-vy", "🌐 Webb-vy"])
+st.markdown('</div>', unsafe_allow_html=True)
+
+with tab_webb:
+    st.markdown("### Läs hela rapporten direkt på webben")
+    st.info("Gemini Deep Research skapar en fullt formaterad rapport som är enkel att läsa i webbläsaren.")
+    st.link_button("🌐 Öppna i ny flik", REPORT_WEB_URL, type="primary")
+
+with tab_pdf:
     if REPORT_PDF_PATH.exists():
         st.download_button(
             label="⬇️ Ladda ner PDF",
@@ -35,76 +42,72 @@ with col2:
             mime="application/pdf",
             key="rapport_download",
         )
+        st.markdown("---")
+        pdf_b64 = base64.b64encode(REPORT_PDF_PATH.read_bytes()).decode()
 
-st.markdown("---")
-
-# --- Inline PDF viewer using pdf.js ---
-if REPORT_PDF_PATH.exists():
-    pdf_b64 = base64.b64encode(REPORT_PDF_PATH.read_bytes()).decode()
-
-    viewer_html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <style>
-        body {{
-            margin: 0;
-            padding: 0;
-            background: #1A0A2E;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 0;
-        }}
-        canvas {{
-            max-width: 100%;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-            border-radius: 4px;
-        }}
-        .page-label {{
-            color: #E8E0D8;
-            font-family: sans-serif;
-            font-size: 13px;
-            opacity: 0.6;
-            margin-top: 8px;
-        }}
-    </style>
-    </head>
-    <body>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-        const pdfData = atob("{pdf_b64}");
-        const loadingTask = pdfjsLib.getDocument({{data: pdfData}});
-
-        loadingTask.promise.then(pdf => {{
-            for (let i = 1; i <= pdf.numPages; i++) {{
-                pdf.getPage(i).then(page => {{
-                    const scale = 1.8;
-                    const viewport = page.getViewport({{scale}});
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-
-                    const label = document.createElement('div');
-                    label.className = 'page-label';
-                    label.textContent = 'Sida ' + i + ' av ' + pdf.numPages;
-
-                    document.body.appendChild(label);
-                    document.body.appendChild(canvas);
-
-                    page.render({{canvasContext: ctx, viewport}});
-                }});
+        viewer_html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+        <style>
+            body {{
+                margin: 0;
+                padding: 0;
+                background: #1A0A2E;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                padding: 16px 0;
             }}
-        }});
-    </script>
-    </body>
-    </html>
-    """
-    components.html(viewer_html, height=12000, scrolling=True)
-else:
-    st.warning("PDF-filen hittades inte.")
+            canvas {{
+                max-width: 100%;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+                border-radius: 4px;
+            }}
+            .page-label {{
+                color: #E8E0D8;
+                font-family: sans-serif;
+                font-size: 13px;
+                opacity: 0.6;
+                margin-top: 8px;
+            }}
+        </style>
+        </head>
+        <body>
+        <script>
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+            const pdfData = atob("{pdf_b64}");
+            const loadingTask = pdfjsLib.getDocument({{data: pdfData}});
+
+            loadingTask.promise.then(pdf => {{
+                for (let i = 1; i <= pdf.numPages; i++) {{
+                    pdf.getPage(i).then(page => {{
+                        const scale = 1.8;
+                        const viewport = page.getViewport({{scale}});
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        const label = document.createElement('div');
+                        label.className = 'page-label';
+                        label.textContent = 'Sida ' + i + ' av ' + pdf.numPages;
+
+                        document.body.appendChild(label);
+                        document.body.appendChild(canvas);
+
+                        page.render({{canvasContext: ctx, viewport}});
+                    }});
+                }}
+            }});
+        </script>
+        </body>
+        </html>
+        """
+        components.html(viewer_html, height=12000, scrolling=True)
+    else:
+        st.warning("PDF-filen hittades inte.")
