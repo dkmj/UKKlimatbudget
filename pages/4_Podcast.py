@@ -91,7 +91,7 @@ with tab_las:
     transcript_file = Path("assets/generated/transcript.md")
     if transcript_file.exists():
         with open(transcript_file, encoding="utf-8") as f:
-            st.markdown(f.read())
+            st.markdown(f.read(), unsafe_allow_html=True)
     else:
         st.info(
             "Transkription saknas för tillfället. Den beräknas läggas till i nästa "

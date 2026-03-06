@@ -236,60 +236,52 @@ def inject_custom_css():
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }}
         
-        /* Individual Nav Items */
-        .nav-item {{
+        /* Nav Item Wrappers */
+        .nav-item-wrapper {{
             text-align: center;
-            padding: 8px 12px;
             border-radius: 8px;
             transition: all 0.3s ease;
+        }}
+        
+        .nav-item-wrapper > div > a {{
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            padding: 8px 12px !important;
             text-decoration: none !important;
+            background: transparent !important;
+        }}
+        
+        .nav-item-wrapper > div > a:hover {{
+            background: transparent !important;
+        }}
+        
+        .nav-item-wrapper p {{
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
             color: #E8E0D8 !important;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
+            margin: 0 !important;
         }}
         
-        .nav-icon {{
-            font-size: 1.5rem;
+        .nav-item-wrapper svg {{
+            display: none !important; 
         }}
         
-        .nav-label {{
-            font-size: 0.85rem;
-            font-weight: 500;
-        }}
-        
-        .nav-item a {{
-            text-decoration: none !important;
-            color: #E8E0D8 !important;
-            font-size: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }}
-        
-        /* Show text label under icon using pseudo-element */
-        .nav-item a::after {{
-            content: attr(title);
-            font-size: 0.85rem;
-            margin-top: 4px;
-            font-weight: normal;
-        }}
-        
-        .nav-item:hover {{
-            background: rgba(123, 45, 142, 0.5);
-            transform: translateY(-2px);
-        }}
-        
-        .active-nav-item {{
+        .nav-item-wrapper.active-nav-item {{
             background: rgba(217, 79, 122, 0.4);
             box-shadow: 0 0 10px rgba(217, 79, 122, 0.6);
             border: 1px solid #D94F7A;
         }}
         
+        .nav-item-wrapper:hover {{
+            background: rgba(123, 45, 142, 0.5);
+            transform: translateY(-2px);
+        }}
+        
         /* Glass Cards (for the hub) */
-        .glass-card {{
+        .glass-card-wrapper {{
             background: rgba(45, 27, 78, 0.5) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -298,28 +290,59 @@ def inject_custom_css():
             padding: 24px !important;
             text-align: center;
             transition: all 0.3s ease;
-            cursor: pointer;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }}
+        
+        .glass-card-wrapper > div > a {{
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
             text-decoration: none !important;
+            background: transparent !important;
+            padding: 0 !important;
+            margin-bottom: 8px !important;
+        }}
+        
+        .glass-card-wrapper > div > a:hover {{
+            background: transparent !important;
+        }}
+        
+        .glass-card-wrapper p {{
+            font-size: 1.2rem !important;
+            font-weight: bold !important;
+            color: #F0EDE8 !important;
+            margin: 0 !important;
+        }}
+        
+        .glass-card-wrapper pre {{
+            display: none !important;
+        }}
+        
+        .glass-card-wrapper p.card-desc {{
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            margin-top: -10px !important;
             color: #F0EDE8 !important;
         }}
         
-        .glass-card:hover {{
+        .glass-card-wrapper > div > a > div:first-child {{
+            font-size: 2.5rem !important;
+            margin-bottom: 8px !important;
+        }}
+        
+        .glass-card-wrapper:hover {{
             background: rgba(91, 45, 142, 0.7) !important;
             border-color: {PALETTE["pink"]} !important;
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(217, 79, 122, 0.4);
-        }}
-        
-        .glass-card h3 {{
-            margin-top: 12px !important;
-            margin-bottom: 4px !important;
-            font-size: 1.2rem !important;
+            cursor: pointer;
         }}
         
         .glass-card p {{

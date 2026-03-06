@@ -114,81 +114,132 @@ else:
         "*(Fler frågor kommer att genereras via NotebookLM.)*"
     )
 
-# Initialize quiz state
-if "quiz_index" not in st.session_state:
-    st.session_state.quiz_index = 0
-    st.session_state.quiz_score = 0
-    st.session_state.quiz_answered = False
-    st.session_state.quiz_order = list(range(len(quiz_data)))
-    random.shuffle(st.session_state.quiz_order)
-    # Pre-shuffle options for each question so correct answer isn't always first
-    st.session_state.quiz_shuffled_options = {}
-    for i in range(len(quiz_data)):
-        options = quiz_data[i]["alternativ"].copy()
-        random.shuffle(options)
-        st.session_state.quiz_shuffled_options[i] = options
+# --- Flashcard CSS ---
+st.markdown("""
+<style>
+.flashcard-container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    margin: 2rem auto;
+}
+.flashcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border: 1px solid rgba(123, 45, 142, 0.4);
+}
+.flashcard-front {
+    background: rgba(45, 27, 78, 0.7);
+}
+.flashcard-back {
+    background: rgba(91, 45, 142, 0.8);
+    transform: rotateY(180deg);
+}
+.flashcard-front h3 {
+    margin: 0;
+    color: #F0EDE8;
+}
+.flashcard-back h2 {
+    color: #D4A843;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.flashcard-back p {
+    color: #F0EDE8;
+    font-size: 1.1rem;
+    margin: 0;
+}
+.flashcard-hint {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: 2rem;
+    font-style: italic;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Initialize flashcard state
+if "fc_index" not in st.session_state:
+    st.session_state.fc_index = 0
+    st.session_state.fc_flipped = False
+    st.session_state.fc_order = list(range(len(quiz_data)))
+    random.shuffle(st.session_state.fc_order)
 
 total = len(quiz_data)
-idx = st.session_state.quiz_index
+idx = st.session_state.fc_index
 
-if idx >= total:
-    st.success(f"Quiz klar! Du fick **{st.session_state.quiz_score}/{total}** rätt.")
-    thumbs_feedback(
-        "quiz", f"Resultat: {st.session_state.quiz_score}/{total}", key_suffix="result"
-    )
-    if st.button("Starta om"):
-        st.session_state.quiz_index = 0
-        st.session_state.quiz_score = 0
-        st.session_state.quiz_answered = False
-        st.session_state.quiz_order = list(range(len(quiz_data)))
-        random.shuffle(st.session_state.quiz_order)
-        # Re-shuffle options
-        st.session_state.quiz_shuffled_options = {}
-        for i in range(len(quiz_data)):
-            options = quiz_data[i]["alternativ"].copy()
-            random.shuffle(options)
-            st.session_state.quiz_shuffled_options[i] = options
+# Navigation and Progress
+col1, col2, col3 = st.columns([1, 2, 1])
+with col1:
+    if st.button("⬅️ Föregående", disabled=(idx == 0), use_container_width=True):
+        st.session_state.fc_index -= 1
+        st.session_state.fc_flipped = False
         st.rerun()
-    st.stop()
 
-q_data_idx = st.session_state.quiz_order[idx]
+with col2:
+    st.progress((idx + 1) / total, text=f"Flashcard {idx + 1} av {total}")
+
+with col3:
+    if st.button("Nästa ➡️", disabled=(idx == total - 1), use_container_width=True):
+        st.session_state.fc_index += 1
+        st.session_state.fc_flipped = False
+        st.rerun()
+
+# Get current question
+q_data_idx = st.session_state.fc_order[idx]
 q = quiz_data[q_data_idx]
-shuffled_options = st.session_state.quiz_shuffled_options.get(
-    q_data_idx, q["alternativ"]
-)
 
-st.progress((idx) / total, text=f"Fråga {idx + 1} av {total}")
-
-st.markdown(f"### {q['fråga']}")
-
-selected = st.radio(
-    "Välj ditt svar:",
-    shuffled_options,
-    index=None,
-    key=f"quiz_q_{idx}",
-    disabled=st.session_state.quiz_answered,
-)
-
-if not st.session_state.quiz_answered:
-    if selected is None:
-        st.caption("👆 Välj ett alternativ ovan för att kunna svara.")
-    if st.button("Svara", key=f"quiz_submit_{idx}", disabled=(selected is None)):
-        st.session_state.quiz_answered = True
-        if selected == q["rätt_svar"]:
-            st.session_state.quiz_score += 1
-            st.success("Rätt! ✅")
-        else:
-            st.error(f"Fel. Rätt svar: **{q['rätt_svar']}**")
-        st.info(f"💡 {q['förklaring']}")
+# Toggle flip state button (invisible, triggered by JS if possible, but we use a Streamlit button for actual state)
+col_flip1, col_flip2, col_flip3 = st.columns([1, 2, 1])
+with col_flip2:
+    flip_label = "Vänd tillbaka kortet 🔄" if st.session_state.fc_flipped else "Visa svaret 🔄"
+    if st.button(flip_label, use_container_width=True):
+        st.session_state.fc_flipped = not st.session_state.fc_flipped
         st.rerun()
-else:
-    if selected == q["rätt_svar"]:
-        st.success("Rätt! ✅")
-    else:
-        st.error(f"Fel. Rätt svar: **{q['rätt_svar']}**")
-    st.info(f"💡 {q['förklaring']}")
 
-    if st.button("Nästa fråga →", key=f"quiz_next_{idx}"):
-        st.session_state.quiz_index += 1
-        st.session_state.quiz_answered = False
-        st.rerun()
+# Render the Flashcard
+flipped_class = "flipped" if st.session_state.fc_flipped else ""
+
+st.markdown(f"""
+<div class="flashcard-container">
+    <div class="flashcard {flipped_class}">
+        <div class="flashcard-front">
+            <h3>{q['fråga']}</h3>
+            <div class="flashcard-hint">Klicka på knappen ovan för att se svaret</div>
+        </div>
+        <div class="flashcard-back">
+            <h2>{q['rätt_svar']}</h2>
+            <p>{q['förklaring']}</p>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+if st.button("Slumpa om korten 🔀"):
+    st.session_state.fc_index = 0
+    st.session_state.fc_flipped = False
+    random.shuffle(st.session_state.fc_order)
+    st.rerun()

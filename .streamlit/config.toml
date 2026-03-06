@@ -10,3 +10,6 @@ headless = true
 
 [client]
 showErrorDetails = false
+
+[client]
+showSidebarNavigation = false
