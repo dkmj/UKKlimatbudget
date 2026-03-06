@@ -37,9 +37,8 @@ def render_top_nav(current_page: str = None):
                 
             active_class = 'active-nav-item' if is_active else ''
             
-            st.markdown(f'<div class="nav-item-wrapper {active_class}">', unsafe_allow_html=True)
+            st.markdown(f'<div class="nav-item-wrapper {active_class}"></div>', unsafe_allow_html=True)
             st.page_link(target, label=label, icon=icon)
-            st.markdown('</div>', unsafe_allow_html=True)
             
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('<div class="nav-separator"></div>', unsafe_allow_html=True)

@@ -236,14 +236,21 @@ def inject_custom_css():
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }}
         
-        /* Nav Item Wrappers */
-        .nav-item-wrapper {{
+        /* Hide Hook Containers */
+        .element-container:has(.nav-item-wrapper),
+        .element-container:has(.glass-card-wrapper) {{
+            display: none !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-bottom: -1rem !important;
+        }}
+        
+        /* Nav Item Styles applied to next st.page_link element */
+        .element-container:has(.nav-item-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] {{
             text-align: center;
             border-radius: 8px;
             transition: all 0.3s ease;
-        }}
-        
-        .nav-item-wrapper > div > a {{
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
@@ -254,34 +261,31 @@ def inject_custom_css():
             background: transparent !important;
         }}
         
-        .nav-item-wrapper > div > a:hover {{
-            background: transparent !important;
+        .element-container:has(.nav-item-wrapper) + .element-container a[data-testid="stPageLink-NavLink"]:hover {{
+            background: rgba(123, 45, 142, 0.5) !important;
+            transform: translateY(-2px);
         }}
         
-        .nav-item-wrapper p {{
+        .element-container:has(.nav-item-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] p {{
             font-size: 0.85rem !important;
             font-weight: 500 !important;
             color: #E8E0D8 !important;
             margin: 0 !important;
         }}
         
-        .nav-item-wrapper svg {{
-            display: none !important; 
+        /* Default st header styling inner p element overrider */
+        .element-container:has(.nav-item-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] p > span {{
+            font-size: 1.2rem;
         }}
         
-        .nav-item-wrapper.active-nav-item {{
-            background: rgba(217, 79, 122, 0.4);
+        .element-container:has(.nav-item-wrapper.active-nav-item) + .element-container a[data-testid="stPageLink-NavLink"] {{
+            background: rgba(217, 79, 122, 0.4) !important;
             box-shadow: 0 0 10px rgba(217, 79, 122, 0.6);
             border: 1px solid #D94F7A;
         }}
         
-        .nav-item-wrapper:hover {{
-            background: rgba(123, 45, 142, 0.5);
-            transform: translateY(-2px);
-        }}
-        
-        /* Glass Cards (for the hub) */
-        .glass-card-wrapper {{
+        /* Glass Cards for the hub applied to next st.page_link */
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] {{
             background: rgba(45, 27, 78, 0.5) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -290,59 +294,110 @@ def inject_custom_css():
             padding: 24px !important;
             text-align: center;
             transition: all 0.3s ease;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }}
-        
-        .glass-card-wrapper > div > a {{
             display: flex !important;
             flex-direction: column !important;
-            align-items: center !important;
             justify-content: center !important;
+            align-items: center !important;
+            height: 180px !important; /* Fixed height to create a card shape since block text is outside */
             text-decoration: none !important;
-            background: transparent !important;
-            padding: 0 !important;
-            margin-bottom: 8px !important;
         }}
         
-        .glass-card-wrapper > div > a:hover {{
-            background: transparent !important;
-        }}
-        
-        .glass-card-wrapper p {{
-            font-size: 1.2rem !important;
-            font-weight: bold !important;
-            color: #F0EDE8 !important;
-            margin: 0 !important;
-        }}
-        
-        .glass-card-wrapper pre {{
-            display: none !important;
-        }}
-        
-        .glass-card-wrapper p.card-desc {{
-            font-size: 0.9rem !important;
-            font-weight: normal !important;
-            opacity: 0.8;
-            margin-top: -10px !important;
-            color: #F0EDE8 !important;
-        }}
-        
-        .glass-card-wrapper > div > a > div:first-child {{
-            font-size: 2.5rem !important;
-            margin-bottom: 8px !important;
-        }}
-        
-        .glass-card-wrapper:hover {{
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"]:hover {{
             background: rgba(91, 45, 142, 0.7) !important;
             border-color: {PALETTE["pink"]} !important;
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(217, 79, 122, 0.4);
             cursor: pointer;
+        }}
+        
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] p {{
+            font-size: 1.2rem !important;
+            font-weight: bold !important;
+            color: #F0EDE8 !important;
+            margin: 0 !important;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }}
+        
+        /* Increase icon size dynamically */
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"] p > span:first-child {{
+            font-size: 2.5rem !important;
+            line-height: 1;
+        }}
+
+        /* Inject descriptions manually via CSS depending on href */
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="1_%C3%96versikt.py"]::after,
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="1_\\00D6versikt.py"]::after {{
+            content: "Dashboard med nyckeltal";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="2_Utforska.py"]::after {{
+            content: "Sök och filtrera 72 åtgärder";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="3_Quiz.py"]::after {{
+            content: "Testa din kunskap";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="4_Podcast.py"]::after {{
+            content: "Lyssna 🎧 eller Läs 📖";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="5_Presentation.py"]::after {{
+            content: "Bildspel för möten";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="6_Chatt.py"]::after {{
+            content: "Ställ frågor om klimatbudgeten m h a AI";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
+        }}
+
+        .element-container:has(.glass-card-wrapper) + .element-container a[data-testid="stPageLink-NavLink"][href$="7_Rapport.py"]::after {{
+            content: "PDF 📄 eller Webb 🌐";
+            display: block;
+            font-size: 0.9rem !important;
+            font-weight: normal !important;
+            opacity: 0.8;
+            color: #F0EDE8 !important;
+            margin-top: -12px;
         }}
         
         .glass-card p {{

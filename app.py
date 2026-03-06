@@ -60,24 +60,20 @@ st.html(
 cols1 = st.columns(4)
 
 with cols1[0]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/1_Översikt.py", label="Översikt", icon="📊")
-    st.markdown('<p class="card-desc">Dashboard med nyckeltal</p></div>', unsafe_allow_html=True)
 
 with cols1[1]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/2_Utforska.py", label="Utforska", icon="🔍")
-    st.markdown('<p class="card-desc">Sök och filtrera 72 åtgärder</p></div>', unsafe_allow_html=True)
 
 with cols1[2]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/3_Quiz.py", label="Quiz", icon="❓")
-    st.markdown('<p class="card-desc">Testa din kunskap</p></div>', unsafe_allow_html=True)
 
 with cols1[3]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/4_Podcast.py", label="Podcast", icon="🎙️")
-    st.markdown('<p class="card-desc">Lyssna 🎧 eller Läs 📖</p></div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -86,19 +82,16 @@ st.markdown("<br>", unsafe_allow_html=True)
 cols2 = st.columns([1, 2, 2, 2, 1])
 
 with cols2[1]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/5_Presentation.py", label="Presentation", icon="📑")
-    st.markdown('<p class="card-desc">Bildspel för möten</p></div>', unsafe_allow_html=True)
 
 with cols2[2]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/6_Chatt.py", label="Chatt", icon="💬")
-    st.markdown('<p class="card-desc">Ställ frågor om klimatbudgeten m h a AI</p></div>', unsafe_allow_html=True)
 
 with cols2[3]:
-    st.markdown('<div class="glass-card-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card-wrapper"></div>', unsafe_allow_html=True)
     st.page_link("pages/7_Rapport.py", label="Rapport", icon="📄")
-    st.markdown('<p class="card-desc">PDF 📄 eller Webb 🌐</p></div>', unsafe_allow_html=True)
 
 # Layer 3: Footer Linkroll
 st.html(
