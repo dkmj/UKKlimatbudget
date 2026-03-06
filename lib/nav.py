@@ -38,10 +38,11 @@ def render_top_nav(current_page: str = None):
             active_class = 'active-nav-item' if is_active else ''
             
             st.markdown(f"""
-                <div class="nav-item {active_class}" title="{label}">
+                <a href="{target.replace('pages/', '').replace('.py', '').split('_', 1)[-1] if target.startswith('pages/') else target}" class="nav-item {active_class}" title="{label}">
+                    <span class="nav-icon">{icon}</span>
+                    <span class="nav-label">{label}</span>
+                </a>
             """, unsafe_allow_html=True)
-            st.page_link(target, label=icon, icon=None)
-            st.markdown("</div>", unsafe_allow_html=True)
             
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('<div class="nav-separator"></div>', unsafe_allow_html=True)

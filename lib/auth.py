@@ -23,7 +23,11 @@ def _log_session():
 
 def check_password() -> bool:
     """Show password input and return True if correct."""
-    if st.session_state.get("authenticated"):
+    auth_file = Path(".authenticated")
+    
+    if st.session_state.get("authenticated") or auth_file.exists():
+        if not st.session_state.get("authenticated"):
+            st.session_state["authenticated"] = True
         return True
 
     try:
@@ -39,6 +43,7 @@ def check_password() -> bool:
     if st.button("Logga in", key="login_button"):
         if entered == password:
             st.session_state["authenticated"] = True
+            auth_file.touch()
             _log_session()
             st.rerun()
         else:

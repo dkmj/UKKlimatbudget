@@ -115,7 +115,7 @@ with cols2[2]:
         <a href="Chatt" class="glass-card" target="_self">
             <div class="icon">💬</div>
             <h3>Chatt</h3>
-            <p>Ställ frågor till AI</p>
+            <p>Ställ frågor om klimatbudgeten m h a AI</p>
         </a>
     ''', unsafe_allow_html=True)
 
