@@ -72,7 +72,10 @@ try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel("gemini-2.5-flash")
         gemini_available = True
-except Exception:
+except Exception as e:
+    import traceback
+    traceback.print_exc()
+    print(f"DEBUG: gemini init failed with error: {e}")
     api_key = ""
 
 if not gemini_available:
