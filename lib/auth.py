@@ -1,10 +1,14 @@
 """Simple password authentication for Streamlit."""
 
 import json
+import time
 from datetime import datetime
 from pathlib import Path
 
 import streamlit as st
+
+# Session expires after 10 minutes of inactivity
+INACTIVITY_TIMEOUT = 600
 
 FEEDBACK_DIR = Path("feedback")
 SESSION_LOG = FEEDBACK_DIR / "sessions.jsonl"
@@ -24,7 +28,13 @@ def _log_session():
 def check_password() -> bool:
     """Show password input and return True if correct."""
     if st.session_state.get("authenticated"):
-        return True
+        last = st.session_state.get("last_activity", 0)
+        if time.time() - last > INACTIVITY_TIMEOUT:
+            st.session_state["authenticated"] = False
+            st.warning("⏱️ Sessionen har gått ut på grund av inaktivitet. Logga in igen.")
+        else:
+            st.session_state["last_activity"] = time.time()
+            return True
 
     try:
         password = st.secrets["app_password"]
@@ -34,13 +44,16 @@ def check_password() -> bool:
     st.markdown("## 🔐 Logga in")
     st.markdown("Ange lösenord för att komma åt appen.")
 
-    entered = st.text_input("Lösenord", type="password", key="password_input")
+    with st.form("login_form"):
+        entered = st.text_input("Lösenord", type="password", key="password_input")
+        submitted = st.form_submit_button("Logga in")
 
-    if st.button("Logga in", key="login_button"):
+    if submitted:
         if entered == password:
             st.session_state["authenticated"] = True
+            st.session_state["last_activity"] = time.time()
             _log_session()
-            st.rerun()
+            st.switch_page("app.py")
         else:
             st.error("Fel lösenord. Försök igen.")
 

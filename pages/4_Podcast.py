@@ -1,6 +1,7 @@
 """Podcast — Lyssna på AI-genererade podcastavsnitt om klimatbudgeten."""
 
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -9,10 +10,14 @@ import streamlit as st
 from lib.auth import check_password
 from lib.favorites import render_sidebar_favorites
 from lib.feedback import thumbs_feedback
-from lib.style import inject_custom_css
+from lib.nav import render_nav_bar
+from lib.style import PALETTE, inject_custom_css
 
 st.set_page_config(
-    page_title="Podcast — Klimatbudget", page_icon="🎙️", layout="centered"
+    page_title="Podcast — Klimatbudget",
+    page_icon="🎙️",
+    layout="centered",
+    initial_sidebar_state="collapsed",
 )
 
 if not check_password():
@@ -20,6 +25,7 @@ if not check_password():
 
 inject_custom_css()
 render_sidebar_favorites()
+render_nav_bar("podcast")
 
 st.title("🎙️ Podcast: Klimatbudgeten")
 st.markdown(
@@ -28,22 +34,18 @@ st.markdown(
 )
 
 # --- Podcast catalog ---
-# Each podcast entry: {name, description, file, created}
 catalog_file = Path("assets/generated/podcast_catalog.json")
 
-# Initialize catalog from existing files if no catalog exists
 if catalog_file.exists():
     with open(catalog_file, encoding="utf-8") as f:
         catalog = json.load(f)
 else:
     catalog = []
 
-# Auto-discover audio files not in catalog
+# Auto-discover MP3 files only (skip WAV duplicates)
 audio_dir = Path("assets/generated")
 existing_files = {p["file"] for p in catalog}
-for audio_file in sorted(
-    list(audio_dir.glob("podcast*.wav")) + list(audio_dir.glob("podcast*.mp3"))
-):
+for audio_file in sorted(audio_dir.glob("podcast*.mp3")):
     if audio_file.name not in existing_files:
         stat = audio_file.stat()
         catalog.append(
@@ -57,28 +59,102 @@ for audio_file in sorted(
             }
         )
 
-# Display podcasts
-if catalog:
-    for i, pod in enumerate(catalog):
-        audio_path = audio_dir / pod["file"]
-        if not audio_path.exists():
-            continue
+# Check if transcript exists
+transcript_file = Path("assets/generated/podcast_transcript.txt")
+has_transcript = transcript_file.exists()
 
-        st.markdown("---")
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.subheader(f"🎧 {pod['name']}")
-            if pod.get("description"):
-                st.markdown(pod["description"])
-        with col2:
-            st.caption(f"📅 {pod['created']}")
-            size_mb = audio_path.stat().st_size / (1024 * 1024)
-            st.caption(f"📦 {size_mb:.1f} MB")
+# Format signal
+if has_transcript:
+    st.markdown(
+        '<div class="format-bar">'
+        "<span>Tillgänglig som:</span> "
+        "<span>🎧 Ljud</span> · "
+        "<span>📖 Transkript</span>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
-        st.audio(str(audio_path))
-        thumbs_feedback("podcast", pod["name"], key_suffix=f"pod_{i}")
+# --- Tabs: Listen / Transcript ---
+if has_transcript:
+    tab_listen, tab_transcript = st.tabs(["🎧 Lyssna", "📖 Transkript"])
 else:
-    st.info("Inga podcastavsnitt har genererats ännu.")
+    tab_listen = st.container()
+
+# Listen tab
+with tab_listen:
+    if catalog:
+        for i, pod in enumerate(catalog):
+            audio_path = audio_dir / pod["file"]
+            if not audio_path.exists():
+                continue
+
+            st.markdown("---")
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.subheader(f"🎧 {pod['name']}")
+                if pod.get("description"):
+                    st.markdown(pod["description"])
+            with col2:
+                st.caption(f"📅 {pod['created']}")
+                size_mb = audio_path.stat().st_size / (1024 * 1024)
+                st.caption(f"📦 {size_mb:.1f} MB")
+
+            st.audio(str(audio_path))
+            thumbs_feedback("podcast", pod["name"], key_suffix=f"pod_{i}")
+    else:
+        st.info("Inga podcastavsnitt har genererats ännu.")
+
+# Transcript tab
+if has_transcript:
+    with tab_transcript:
+        st.markdown("---")
+        st.subheader("📖 Transkript")
+
+        # Inject transcript-specific CSS to override global span color rules
+        st.markdown(
+            f"""
+            <style>
+            .tr-ts {{ color: {PALETTE["cream"]} !important; opacity: 0.5; font-size: 0.8rem; }}
+            .tr-han {{ color: #9a9a9a !important; }}
+            .tr-han-name {{ color: #9a9a9a !important; font-weight: 700; }}
+            .tr-hon {{ color: {PALETTE["white"]} !important; }}
+            .tr-hon-name {{ color: {PALETTE["white"]} !important; font-weight: 700; }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        transcript_text = transcript_file.read_text(encoding="utf-8")
+        lines = transcript_text.strip().splitlines()
+
+        # Parse and render with speaker colors.
+        # Only show speaker name when the speaker changes.
+        speaker_css = {"Han": "han", "Hon": "hon"}
+        prev_speaker = None
+
+        for line in lines:
+            match = re.match(r"\[(\d{2}:\d{2})\]\s*(.+?):\s*(.+)", line)
+            if match:
+                timestamp, speaker, text = match.groups()
+                css = speaker_css.get(speaker, "hon")
+                # Show speaker name only on first appearance or change
+                if speaker != prev_speaker:
+                    speaker_html = (
+                        f'<span class="tr-{css}-name">{speaker}:</span> '
+                    )
+                    prev_speaker = speaker
+                else:
+                    speaker_html = ""
+                st.markdown(
+                    f'<span class="tr-ts">[{timestamp}]</span> '
+                    f"{speaker_html}"
+                    f'<span class="tr-{css}">{text}</span>',
+                    unsafe_allow_html=True,
+                )
+            elif line.strip():
+                st.markdown(line)
+
+        thumbs_feedback("podcast_transcript", "transkript", key_suffix="pod_tr")
 
 # --- Request new podcast ---
 st.markdown("---")
@@ -88,7 +164,6 @@ st.markdown(
     "Förslagen samlas in och genereras sedan via NotebookLM."
 )
 
-# Load existing requests
 requests_file = Path("feedback/podcast_requests.json")
 requests_file.parent.mkdir(exist_ok=True)
 
@@ -101,7 +176,6 @@ with st.form("podcast_request", clear_on_submit=True):
     submitted = st.form_submit_button("📨 Skicka förslag")
 
 if submitted and prompt.strip():
-    # Save the request
     if requests_file.exists():
         with open(requests_file, encoding="utf-8") as f:
             requests = json.load(f)

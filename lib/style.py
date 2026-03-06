@@ -210,44 +210,6 @@ def inject_custom_css():
             display: none !important;
         }}
 
-        /* --- Hub cards (glassmorphic) --- */
-        .hub-card {{
-            background: rgba(45, 27, 78, 0.55);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(91, 45, 142, 0.4);
-            border-radius: 12px;
-            padding: 1.25rem 1rem;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.25s, border-color 0.25s;
-            min-height: 160px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }}
-        .hub-card:hover {{
-            transform: translateY(-4px);
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35),
-                        0 0 20px var(--accent-color, rgba(123, 45, 142, 0.3));
-            border-color: var(--accent-color, {PALETTE["magenta"]});
-        }}
-        .hub-card .hub-icon {{
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
-        }}
-        .hub-card .hub-title {{
-            font-size: 1rem !important;
-            font-weight: 600 !important;
-            color: {PALETTE["white"]} !important;
-            margin: 0.25rem 0 !important;
-        }}
-        .hub-card .hub-desc {{
-            font-size: 0.8rem !important;
-            color: {PALETTE["cream"]} !important;
-            opacity: 0.85;
-            margin: 0 !important;
-        }}
-
         /* --- Nav bar (compact icon row on sub-pages) --- */
         .nav-item {{
             text-align: center;
@@ -297,17 +259,6 @@ def inject_custom_css():
             color: {PALETTE["gold"]} !important;
             opacity: 0.9;
             margin-bottom: 1rem !important;
-        }}
-
-        /* Responsive — mobile cards */
-        @media (max-width: 768px) {{
-            .hub-card {{
-                padding: 0.75rem;
-                min-height: 120px;
-            }}
-            .hub-card .hub-icon {{
-                font-size: 1.5rem;
-            }}
         }}
 
         /* Sidebar linkroll — match Streamlit nav item styling */

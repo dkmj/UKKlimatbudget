@@ -18,6 +18,55 @@ if not check_password():
 
 inject_custom_css()
 
+# Hub-specific CSS: re-style plain st.button() as glassmorphic cards.
+# This only runs on the hub page so it won't affect buttons elsewhere.
+st.markdown(
+    """
+    <style>
+    /* Turn hub buttons into glassmorphic cards */
+    [data-testid="stMain"] .stButton > button {
+        background: rgba(45, 27, 78, 0.55) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(91, 45, 142, 0.4) !important;
+        border-radius: 12px !important;
+        padding: 1.25rem 1rem !important;
+        min-height: 160px !important;
+        white-space: pre-line !important;
+        line-height: 1.6 !important;
+        font-size: 0.85rem !important;
+        color: #E8E0D8 !important;
+        transition: transform 0.2s, box-shadow 0.25s, border-color 0.25s !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        cursor: pointer !important;
+    }
+    [data-testid="stMain"] .stButton > button:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35),
+                    0 0 20px rgba(123, 45, 142, 0.4) !important;
+        border-color: #7B2D8E !important;
+        background: rgba(45, 27, 78, 0.7) !important;
+    }
+    [data-testid="stMain"] .stButton > button:active {
+        transform: translateY(-2px) !important;
+    }
+    /* Responsive — mobile */
+    @media (max-width: 768px) {
+        [data-testid="stMain"] .stButton > button {
+            min-height: 120px !important;
+            padding: 0.75rem !important;
+            font-size: 0.8rem !important;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # --- Hero ---
 st.markdown(
     """
@@ -143,20 +192,20 @@ CARDS = [
 ]
 
 # --- Card grid: 4 + 4 ---
+# We use st.button() + st.switch_page() so clicks trigger Streamlit-native
+# navigation that preserves session state (unlike raw <a href> links).
+# Hub-specific CSS below re-styles these buttons as glassmorphic cards.
 for row_start in (0, 4):
     cols = st.columns(4)
     for i, col in enumerate(cols):
         card = CARDS[row_start + i]
         with col:
-            st.markdown(
-                f'<div class="hub-card" style="--accent-color:{card["accent"]}">'
-                f'<div class="hub-icon">{card["icon"]}</div>'
-                f'<p class="hub-title">{card["title"]}</p>'
-                f'<p class="hub-desc">{card["desc"]}</p>'
-                f"</div>",
-                unsafe_allow_html=True,
-            )
-            st.page_link(card["path"], label=f"Öppna {card['title']}", use_container_width=True)
+            if st.button(
+                f"{card['icon']}\n{card['title']}\n{card['desc']}",
+                key=f"hub_{card['title']}",
+                use_container_width=True,
+            ):
+                st.switch_page(card["path"])
 
 # --- Footer ---
 render_hub_footer()

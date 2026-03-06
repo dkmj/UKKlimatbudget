@@ -115,9 +115,33 @@ if not gemini_available:
 # --- Chat interface ---
 st.markdown(
     "Ställ frågor om klimatbudgeten, be om analyser, jämförelser "
-    "eller brainstorma kring prioriteringar."
+    "eller brainstorma kring prioriteringar.  \n"
+    "AI är en förhållandevis enkel och billig modell, "
+    "därmed inte så djup eller snabb tyvärr."
 )
 st.caption(f"📊 Frågor idag: {used_today}/{daily_limit}")
+
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Show suggestions when chat is empty
+if not st.session_state.messages:
+    st.markdown("---")
+    st.markdown("**💡 Prova att fråga:**")
+    _suggestions = [
+        "Vilka åtgärder har störst potential att minska utsläppen snabbt?",
+        "Jämför transportområdet med energiområdet — likheter och skillnader?",
+        "Vilka åtgärder kan KS driva utan att behöva samverka med andra?",
+        "Hur hänger bygg- och anläggningsåtgärderna ihop med energiåtgärderna?",
+        "Brainstorma: vilka nya åtgärder saknas i klimatbudgeten?",
+    ]
+    _cols = st.columns(2)
+    for _i, _s in enumerate(_suggestions):
+        with _cols[_i % 2]:
+            if st.button(f"💬 {_s}", key=f"sug_{_i}", use_container_width=True):
+                st.session_state._pending_prompt = _s
+                st.rerun()
 
 SYSTEM_PROMPT = (
     "Du är en expert på Uppsala kommuns klimatbudget. "
@@ -127,10 +151,6 @@ SYSTEM_PROMPT = (
     "Om du ombeds brainstorma, var kreativ men håll dig förankrad i dokumentets kontext.\n\n"
     f"DOKUMENT:\n{_build_context()}"
 )
-
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
 
 # Display chat history
 for i, msg in enumerate(st.session_state.messages):
@@ -142,8 +162,12 @@ for i, msg in enumerate(st.session_state.messages):
 # Model info (shown below the chat input area)
 st.caption("Gemini 2.5 Flash · Free Tier: 15 req/min, 1 500 req/dag, 1M tokens/dag")
 
-# Chat input
-if prompt := st.chat_input("Ställ en fråga om klimatbudgeten..."):
+# Chat input — accept typed prompt or pending suggestion click
+prompt = st.chat_input("Ställ en fråga om klimatbudgeten...")
+if not prompt and "_pending_prompt" in st.session_state:
+    prompt = st.session_state.pop("_pending_prompt")
+
+if prompt:
     # Re-check rate limit before making the API call
     allowed, used_today, daily_limit = check_rate_limit()
     if not allowed:
